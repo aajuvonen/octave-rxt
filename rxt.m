@@ -159,17 +159,18 @@ function plot_node_links
   global node_xyz;
   global node_count;
   global graph_node_link;
-  nodes = node_xyz (:,1:2);
-  edges = getEdges(graph_node_link,'adjacency')(:,1:2);
-  labels = [1:node_count]';
+  nodes = node_xyz (:,1:2);                             % Get node xy list
+  edges = getEdges(graph_node_link,'adjacency')(:,1:2); % Get edge list
+  labels = [1:node_count]';                             % Get node numeric labels
   close all;
   
   pkg load matgeom;
-    drawDirectedEdges(nodes,edges);
-    plot_labels = drawNodeLabels(nodes,labels);
-    set(plot_labels,"fontsize",12);
-    plot(nodes(:,1),nodes(:,2),".k","markersize",8);
-    axis([0 500 0 500],"equal");
+    drawDirectedEdges(nodes,edges);                     % Draw directed edges
+    plot_labels = drawNodeLabels(nodes,labels);         % Draw node labels
+    set(plot_labels,"fontsize",12);                     % Resize node label font
+    plot(nodes(:,1),nodes(:,2),".k","markersize",8);    % Draw nodes
+    axis([0 500 0 500],"equal");                        % Set plot axes to 0...500
+    set(gcf,"position",[128 128 512 512]);              % Resize plot
   pkg unload matgeom;
   toc
 endfunction
@@ -181,17 +182,20 @@ function plot_node_jsr
   global node_xyz;
   global node_count;
   global graph_node_jsr;
-  nodes = node_xyz (:,1:2);
-  edges = getEdges(graph_node_jsr,'adjacency')(:,1:2);
-  labels = [1:node_count]';
+  nodes = node_xyz (:,1:2);                             % Get node xy list
+  edges = getEdges(graph_node_jsr,'adjacency')(:,1:2);  % Get edge list
+  labels = [1:node_count]';                             % Get node numeric labels
   close all;
 
   pkg load matgeom;
-    drawDirectedEdges(nodes,edges);
-    plot_labels = drawNodeLabels(nodes,labels);
-    set(plot_labels,"fontsize",12);
-    plot(nodes(:,1),nodes(:,2),".k","markersize",8);
-    axis([0 500 0 500],"equal");
+    drawDirectedEdges(nodes,edges);                     % Draw directed edges
+    plot_labels = drawNodeLabels(nodes,labels);         % Draw node labels
+    set(plot_labels,"fontsize",12);                     % Resize node label font
+    plot(nodes(:,1),nodes(:,2),".k","markersize",8);    % Draw nodes
+    axis([0 500 0 500],"equal");                        % Set plot axes to 0...500
+    set(gcf,"position",[128 128 512 512]);              % Resize plot
   pkg unload matgeom;
   toc
 endfunction
+
+% todo: separate plot drawing function and simplify
