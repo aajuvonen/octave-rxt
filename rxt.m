@@ -159,19 +159,14 @@ function plot_node_links
   global node_xyz;
   global node_count;
   global graph_node_link;
+  global nodes;
+  global edges;
+  global labels;
+
   nodes = node_xyz (:,1:2);                             % Get node xy list
   edges = getEdges(graph_node_link,'adjacency')(:,1:2); % Get edge list
   labels = [1:node_count]';                             % Get node numeric labels
-  close all;
-  
-  pkg load matgeom;
-    drawDirectedEdges(nodes,edges);                     % Draw directed edges
-    plot_labels = drawNodeLabels(nodes,labels);         % Draw node labels
-    set(plot_labels,"fontsize",12);                     % Resize node label font
-    plot(nodes(:,1),nodes(:,2),".k","markersize",8);    % Draw nodes
-    axis([0 500 0 500],"equal");                        % Set plot axes to 0...500
-    set(gcf,"position",[128 128 512 512]);              % Resize plot
-  pkg unload matgeom;
+  plot_worker;                                          % Call plot worker function
   toc
 endfunction
 
@@ -182,20 +177,29 @@ function plot_node_jsr
   global node_xyz;
   global node_count;
   global graph_node_jsr;
+  global nodes;
+  global edges;
+  global labels;
+
   nodes = node_xyz (:,1:2);                             % Get node xy list
   edges = getEdges(graph_node_jsr,'adjacency')(:,1:2);  % Get edge list
   labels = [1:node_count]';                             % Get node numeric labels
-  close all;
-
-  pkg load matgeom;
-    drawDirectedEdges(nodes,edges);                     % Draw directed edges
-    plot_labels = drawNodeLabels(nodes,labels);         % Draw node labels
-    set(plot_labels,"fontsize",12);                     % Resize node label font
-    plot(nodes(:,1),nodes(:,2),".k","markersize",8);    % Draw nodes
-    axis([0 500 0 500],"equal");                        % Set plot axes to 0...500
-    set(gcf,"position",[128 128 512 512]);              % Resize plot
-  pkg unload matgeom;
+  plot_worker;                                          % Call plot worker function
   toc
 endfunction
 
-% todo: separate plot drawing function and simplify
+% Draw graphs with octave-matgeom and octave-networks-toolbox
+function plot_worker
+  global nodes;
+  global edges;
+  global labels;
+
+  close all;                                            % Close all plots
+  axis([0 500 0 500],"equal");                          % Set plot axes to 0...500
+  pkg load matgeom;                                     % Load matgeom
+  drawDirectedEdges(nodes,edges);                       % Draw directed edges
+  plot_labels = drawNodeLabels(nodes,labels);           % Draw node labels
+  set(plot_labels,"fontsize",12);                       % Resize node label font
+  plot(nodes(:,1),nodes(:,2),".k","markersize",8);      % Draw nodes
+  pkg unload matgeom;                                   % Unload matgeom
+endfunction
