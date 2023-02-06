@@ -1,62 +1,82 @@
 % Ambient parameters
-c = 299792458;                  % [m/s]  Speed of light
-k = 1.38064852*10^-23;          % [J/K]  Bolzmann's constant
-T_0 = 290;                      % [K]    Ambient temperature
+global c; c = 299792458;          % [m/s]  Speed of light
+global k; k = 1.38064852*10^-23;  % [J/K]  Bolzmann's constant
+global T_0; T_0 = 290;            % [K]    Ambient temperature
+global WVP;                       % [hPa]  Water vapour pressure
+global RRI;                       % [N]    Radio refractivity index
+global QNH; QNH = 1013.25;        % [hPa]  Atmospheric pressure
+global K;                         % num.   Earth effective radius factor
 
-function retval = num2db(val)   % Convert a linear number to decibels
-  retval = 10*log10(val);       % Input: numeric
-endfunction                     % Output: decibel [dB]
+function retval = num2db(val)     % Convert a linear number to decibels
+  retval = 10*log10(val);         % Input: numeric
+endfunction                       % Output: decibel [dB]
 
-function retval = db2num(val)   % Convert desibels to a linear number
-  retval = 10^(val/10);         % Input: decibel [dB]
-endfunction                     % Output: numeric
+function retval = db2num(val)     % Convert desibels to a linear number
+  retval = 10^(val/10);           % Input: decibel [dB]
+endfunction                       % Output: numeric
 
-function retval = watt2dbm(val) % Convert Watts [W] to decibelmilliwatts [dBm]
-  retval = 30 + num2db(val);    % Input: Watt [W]
-endfunction                     % Output: decibelmilliwatt [dBm]
+function retval = watt2dbm(val)   % Convert Watts [W] to decibelmilliwatts [dBm]
+  retval = 30 + num2db(val);      % Input: Watt [W]
+endfunction                       % Output: decibelmilliwatt [dBm]
+
+function calc_wvp                 % Calculate water vapour pressure using Magnus formula
+  global T_0;                     % Output: water vapour pressure in [kPa] using ambient temperature
+  global WVP;
+  WVP = 6.1094*exp(17.625*(T_0-273.15)/(T_0-30.11));
+endfunction
+calc_wvp;
+
+function calc_r_index             % Calculate radio refractivity index using ITU-R P.453-14 Eq. (7)
+  global T_0;                     % Output: radio refractivity index in N-units
+  global WVP;
+  global RRI;
+  global QNH;
+  RRI = (77.6/T_0)*(QNH+(4810*WVP)/T_0);
+endfunction
+calc_r_index;
+
+function calc_k_factor            % Calculate Earth effective radius factor using Siwiak & Bahreini (2017) Eq. (4.14)
+  global RRI;                     % Output: Eath effective radius factor K
+  K = 1/(1-0.04665*exp(0.005577*RRI));
+endfunction
 
 % Transceiver parameters #1
-f = 100;                        % [MHz]  Transceiver frequency
-lambda = c/(f*10^6);            % [m]    Transceiver wave length
-B = 25000;                      % [Hz]   Transceiver bandwidth
-N_F = 10;                       % [dB]   Transceiver noise figure
-global SNR_req;                 % [dB]   Transceiver signal-to-noise ratio requirement
-SNR_req = 10;
-N_ktb = k*T_0*B;                % [W/Hz] Transceiver thermal noise
-N_0 = watt2dbm(N_ktb);          % [dBm]  Transceiver thermal noise in decibelmilliwatts
+f = 100;                          % [MHz]  Transceiver frequency
+lambda = c/(f*10^6);              % [m]    Transceiver wave length
+B = 25000;                        % [Hz]   Transceiver bandwidth
+N_F = 10;                         % [dB]   Transceiver noise figure
+global SNR_req; SNR_req = 10;     % [dB]   Transceiver signal-to-noise ratio requirement
+N_ktb = k*T_0*B;                  % [W/Hz] Transceiver thermal noise
+N_0 = watt2dbm(N_ktb);            % [dBm]  Transceiver thermal noise in decibelmilliwatts
 
 % Channel parameters
-r_0 = 1000;                     % [m]    Path loss reference distance
-global alpha;                   % num.   Path loss exponent
-alpha = 2;
-L_ref = ((4*pi*r_0)/lambda)^2;  % num.   Path loss in reference distance
-global L_0;                     % [dB]   Path loss in reference distance in decibels
-L_0 = num2db(L_ref);
-L_sf = 6;                       % [dB]   Path loss variation standard deviation
-global L_sf_p;                  % [dB]   Path loss variation for 95% confidence
-L_sf_p = L_sf*1.644853627;
+r_0 = 1000;                       % [m]    Path loss reference distance
+global alpha; alpha = 2;          % num.   Path loss exponent
+L_ref = ((4*pi*r_0)/lambda)^2;    % num.   Path loss in reference distance
+global L_0; L_0 = num2db(L_ref);  % [dB]   Path loss in reference distance in decibels
+L_sf = 6;                         % [dB]   Path loss variation standard deviation
+L_sf_p = L_sf*1.644853627;        % [dB]   Path loss variation for 95% confidence
+
 
 % Transceiver parameters #2
-global N_tot;                   % [dBm]  Transceiver noise floor
-N_tot = N_0 + N_F + L_sf_p;
-global S_min;                   % [dBm]  Transceiver detection threshold
-S_min = N_tot + SNR_req;
-L_int = 0;                      % [dB]   Transceiver cumulative internal losses
-G_pro = 0;                      % [dB]   Transceiver processing gain
-G_ant = 0;                      % [dB]   Transceiver antenna gain
+global N_tot; N_tot = N_0 + N_F + L_sf_p; % [dBm]  Transceiver noise floor
+global S_min; S_min = N_tot + SNR_req;    % [dBm]  Transceiver detection threshold
+L_int = 0;                        % [dB]   Transceiver cumulative internal losses
+G_pro = 0;                        % [dB]   Transceiver processing gain
+G_ant = 0;                        % [dB]   Transceiver antenna gain
 
 % Simulation parameters
-global node_xyz;                % [km]   Node relative x, y, and z coordinates
-global node_dist;               % [km]   Node absolute distances
-global node_tx_pwr;             % [W]    Node transmitted power
-global node_rx_pwr;             % [dBm]  Node received power
-global node_cnr;                % [dB]   Node carrier-to-noise ratio
-global node_jsr;                % [dB]   Node jamming-to-signal ratio
+global node_xyz;                  % [km]   Node relative x, y, and z coordinates
+global node_dist;                 % [km]   Node absolute distances
+global node_tx_pwr;               % [W]    Node transmitted power
+global node_rx_pwr;               % [dBm]  Node received power
+global node_cnr;                  % [dB]   Node carrier-to-noise ratio
+global node_jsr;                  % [dB]   Node jamming-to-signal ratio
 global node_count;
 
 % Node 3D-coordinates
 node_xyz = [368.31,208.33,0.14;306.91,238.32,1.14;289.31,243.26,3.16;79.43,70.3,9.54;427.86,411.94,4.1;404.48,260.81,2.06;204.9,336.15,6.58;143.87,358.15,6.94;54.39,360.22,2.58;139.9,297.57,0.52;385.62,70.96,10.48;192.95,77.71,3.02;227.28,140.75,9.26;397.31,433.21,1.2;259.93,383.01,9.34;327.25,407.21,3.94;223.22,208.32,9.68;168.63,376.82,6.58;99.95,401.07,1.34;174.17,82.22,7.54;398.77,390.32,10.22;408.8,211.88,2.76;283.09,353.25,8.04;417.55,348.61,9.08;428.24,212.94,8.02;237.83,405.47,3.4;113.95,101.15,10.28;414.01,428.2,10.3;314.99,295.82,2.14;93.11,409.86,7.74;349.64,295.1,2.42;104.33,146.04,6.52;163.26,130.89,1.52;110.91,314.08,4.1;406.21,326.87,2.86;56.61,85.55,8.54;269.2,174.11,0.66;446.42,394.55,3.58;307.47,254.65,1.1;336.68,215.87,3.82;250.1,386.84,5.88;145.72,348.9,3.22;326.94,380.85,5.52;326.07,402.31,10.04;219.53,333.48,1.96;253.71,385.76,5.9;226.39,205.02,9.26;394.09,372.45,7.18;99.7,303.65,5.94;235.45,102.79,7.64];
-node_count = length(node_xyz);  % num.   Number of transceivers
+node_count = length(node_xyz);    % num.   Number of transceivers
 
 % Node transceiver parameters 
 node_tx_pwr = [100;15;15;15;15;15;15;15;15;15;15;15;15;15;15;15;15;15;15;15;15;15;15;15;15;15;15;15;15;15;15;15;15;15;15;15;15;15;15;15;15;15;15;15;15;15;15;15;15;15];
