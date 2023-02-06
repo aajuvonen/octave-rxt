@@ -31,10 +31,10 @@ L_ref = ((4*pi*r_0)/lambda)^2;    % num.   Path loss in reference distance
 global L_0; L_0 = num2db(L_ref);  % [dB]   Path loss in reference distance in decibels
 L_sf = 6;                         % [dB]   Path loss variation standard deviation
 L_sf_p = L_sf*1.644853627;        % [dB]   Path loss variation for 95% confidence
-
+global q; q = 50;                 % [%]    Time percentage for P.528
 
 % Transceiver parameters #2
-global N_tot; N_tot = N_0 + N_F + L_sf_p; % [dBm]  Transceiver noise floor
+global N_tot; N_tot = N_0 + N_F + L_sf;   % [dBm]  Transceiver noise floor
 global S_min; S_min = N_tot + SNR_req;    % [dBm]  Transceiver detection threshold
 L_int = 0;                        % [dB]   Transceiver cumulative internal losses
 G_pro = 0;                        % [dB]   Transceiver processing gain
@@ -42,7 +42,8 @@ G_ant = 0;                        % [dB]   Transceiver antenna gain
 
 % Simulation parameters
 global node_xyz;                  % [km]   Node relative x, y, and z coordinates
-global node_dist;                 % [km]   Node absolute distances
+global node_dist;                 % [km]   Node absolute distances in three dimensional space
+global node_geodist_alts;         % var.   Node great circle path distances [km] and altitudes [m]
 global node_tx_pwr;               % [W]    Node transmitted power
 global node_rx_pwr;               % [dBm]  Node received power
 global node_cnr;                  % [dB]   Node carrier-to-noise ratio
@@ -56,7 +57,7 @@ node_count = length(node_xyz);    % num.   Number of transceivers
 % Node transceiver parameters 
 node_tx_pwr = [100;15;15;15;15;15;15;15;15;15;15;15;15;15;15;15;15;15;15;15;15;15;15;15;15;15;15;15;15;15;15;15;15;15;15;15;15;15;15;15;15;15;15;15;15;15;15;15;15;15];
 
-% Calculate node distances using Arun Giridhar's method
+% Calculate node three dimensional distances using Arun Giridhar's method
 % https://octave.discourse.group/t/technique-exchange-computing-distances-between-points/2939
 function calc_node_dist
   global node_xyz;
@@ -69,8 +70,23 @@ endfunction
 
 calc_node_dist;
 
-% Calculate node received powers using free space loss ITU-R P.525-4 with parametric path loss exponent
-function calc_node_rx_pwr
+% Calculate node great circle path distances using Arun Giridhar's method
+% https://octave.discourse.group/t/technique-exchange-computing-distances-between-points/2939
+function calc_node_geodist_alts
+  global node_xyz;
+  global node_count;
+  global node_geodist_alts = zeros(node_count,node_count,3);
+  node_geodist_alts(:,:,1)  = (node_xyz(:,1) - node_xyz(:,1)') .^ 2;
+  node_geodist_alts(:,:,1) += (node_xyz(:,2) - node_xyz(:,2)') .^ 2;
+  node_geodist_alts(:,:,1)  = sqrt (node_geodist_alts(:,:,1));
+  node_geodist_alts(:,:,2) = node_geodist_alts(:,:,2) + node_xyz(:,3)*1000;
+  node_geodist_alts(:,:,3) = node_geodist_alts(:,:,3) + node_xyz(:,3)*1000';
+endfunction
+
+calc_node_geodist_alts;
+
+% Calculate node received powers using free space loss with parametric path loss exponent
+function calc_node_rx_pwr_fsl
   global node_dist;
   global node_tx_pwr;
   global node_rx_pwr;
@@ -79,7 +95,7 @@ function calc_node_rx_pwr
   node_rx_pwr = -1*(L_0 + 10*log10(node_dist.^alpha) - watt2dbm(node_tx_pwr));
 endfunction
   
-calc_node_rx_pwr;
+calc_node_rx_pwr_fsl;
 
 % Calculate node carrier-to-noise ratios
 function calc_node_cnr
