@@ -57,45 +57,70 @@ node_count = length(node_xyz);    % num.   Number of transceivers
 % Node transceiver parameters 
 node_tx_pwr = [100;15;15;15;15;15;15;15;15;15;15;15;15;15;15;15;15;15;15;15;15;15;15;15;15;15;15;15;15;15;15;15;15;15;15;15;15;15;15;15;15;15;15;15;15;15;15;15;15;15];
 
-% Calculate node three dimensional distances using Arun Giridhar's method
-% https://octave.discourse.group/t/technique-exchange-computing-distances-between-points/2939
+% Calculate node three dimensional distances 
 function calc_node_dist
   global node_xyz;
   global node_dist;
-  node_dist  = (node_xyz(:,1) - node_xyz(:,1)') .^ 2;
-  node_dist += (node_xyz(:,2) - node_xyz(:,2)') .^ 2;
+  node_dist  = (node_xyz(:,1) - node_xyz(:,1)') .^ 2; % Using Arun Giridhar's method for three dimensional distance
+  node_dist += (node_xyz(:,2) - node_xyz(:,2)') .^ 2; % https://octave.discourse.group/t/technique-exchange-computing-distances-between-points/2939
   node_dist += (node_xyz(:,3) - node_xyz(:,3)') .^ 2;
   node_dist = sqrt (node_dist);
 endfunction
 
 calc_node_dist;
 
-% Calculate node great circle path distances using Arun Giridhar's method
-% https://octave.discourse.group/t/technique-exchange-computing-distances-between-points/2939
-function calc_node_geodist_alts
-  global node_xyz;
-  global node_count;
-  global node_geodist_alts = zeros(node_count,node_count,3);
-  node_geodist_alts(:,:,1)  = (node_xyz(:,1) - node_xyz(:,1)') .^ 2;
-  node_geodist_alts(:,:,1) += (node_xyz(:,2) - node_xyz(:,2)') .^ 2;
-  node_geodist_alts(:,:,1)  = sqrt (node_geodist_alts(:,:,1));
-  node_geodist_alts(:,:,2) = node_geodist_alts(:,:,2) + node_xyz(:,3)*1000;
-  node_geodist_alts(:,:,3) = node_geodist_alts(:,:,3) + node_xyz(:,3)*1000';
-endfunction
-
-calc_node_geodist_alts;
-
 % Calculate node received powers using free space loss with parametric path loss exponent
 function calc_node_rx_pwr_fsl
+  disp("Calculating node received powers using free space loss...")
+  disp("To calculate using ITU-R P.528-5, call 'calc_node_rx_pwr_p528'")
+  tic
   global node_dist;
   global node_tx_pwr;
   global node_rx_pwr;
   global L_0;
   global alpha;
   node_rx_pwr = -1*(L_0 + 10*log10(node_dist.^alpha) - watt2dbm(node_tx_pwr));
+  toc
 endfunction
   
 calc_node_rx_pwr_fsl;
+
+% Calculate node great circle path distances and altitudes
+function calc_node_geodist_alts
+  global node_xyz;
+  global node_count;
+  global node_geodist_alts;
+  node_geodist_alts = zeros(node_count,node_count,3);
+  node_geodist_alts(:,:,1)  = (node_xyz(:,1) - node_xyz(:,1)') .^ 2;          % Using Arun Giridhar's method for two dimensional distance
+  node_geodist_alts(:,:,1) += (node_xyz(:,2) - node_xyz(:,2)') .^ 2;          % https://octave.discourse.group/t/technique-exchange-computing-distances-between-points/2939
+  node_geodist_alts(:,:,1)  = sqrt (node_geodist_alts(:,:,1));
+  node_geodist_alts(:,:,2) = node_geodist_alts(:,:,2) + node_xyz(:,3)*1000;
+  node_geodist_alts(:,:,3) = node_geodist_alts(:,:,3) + node_xyz(:,3)'*1000;
+endfunction
+
+calc_node_geodist_alts;
+
+% Calculate node received powers using ITU-R P.528-5 implementation by Ivica Stevanovic https://doi.org/10.5281/zenodo.6984262
+function calc_node_rx_pwr_p528
+  disp("Calculating node received powers using free space loss...")
+  tic
+  global node_geodist_alts;
+  global node_tx_pwr;
+  global node_rx_pwr;
+  global f;
+  global q;
+  p528_result = zeros(length(node_geodist_alts),length(node_geodist_alts));
+
+  for i = 1:length(node_geodist_alts)
+    for j = 1:length(node_geodist_alts)
+      p528_result(i,j) = tl_p528(node_geodist_alts(i,j,1),min(node_geodist_alts(i,j,2:3)),max(node_geodist_alts(i,j,2:3)),f,0,q).("A__db");
+    end
+  end
+
+  node_rx_pwr = -1*p528_result;
+  %node_rx_pwr = -1*p528_result - watt2dbm(node_tx_pwr);
+  toc
+endfunction
 
 % Calculate node carrier-to-noise ratios
 function calc_node_cnr
