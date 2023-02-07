@@ -1,10 +1,10 @@
 % Ambient parameters
 global c; c = 299792458;          % [m/s]  Speed of light
 global k; k = 1.38064852*10^-23;  % [J/K]  Bolzmann's constant
-global T_0; T_0 = 290;            % [K]    Ambient temperature
+global T_0; T_0 = 270;            % [K]    Ambient temperature
 global WVP;                       % [hPa]  Water vapour pressure
 global RRI;                       % [N]    Radio refractivity index
-global QNH; QNH = 960;            % [hPa]  Atmospheric pressure
+global QNH; QNH = 961;            % [hPa]  Atmospheric pressure
 global K;                         % num.   Earth effective radius factor
 
 function retval = num2db(val)     % Convert a linear number to decibels
@@ -22,15 +22,21 @@ endfunction                       % Output: decibelmilliwatt [dBm]
 % Calculate Earth effective radius factor K
 function calc_k_factor
   global T_0;
-  global WVP;
-  global RRI;
   global QNH;
-  global K;
-  WVP = 6.1094*exp(17.625*(T_0-273.15)/(T_0-30.11)); % Water vapour pressure using August-Roche-Magnus -formula
-  RRI = (77.6/T_0)*(QNH+(4810*WVP)/T_0);             % Radio refractivity index using ITU-R P.453-14 Eq. (7)
-  K = 1/(1-0.04665*exp(0.005577*RRI));               % K-factor using Siwiak & Bahreini (2017) Eq. (4.14)
-endfunction
+  global WVP;                     % Water vapour pressure using August-Roche-Magnus -formula
+  global RRI;                     % Radio refractivity index using ITU-R P.453-14 Eq. (7)
+  global K;                       % K-factor using Siwiak & Bahreini (2017) Eq. (4.14)
+  WVP = 6.1094*exp(17.625*(T_0-273.15)/(T_0-30.11));
+  RRI = (77.6/T_0)*(QNH+(4810*WVP)/T_0);
+  K = 1/(1-0.04665*exp(0.005577*RRI));
+endfunctiona
 calc_k_factor;
+
+% Calculate smooth Earth radio horizon
+function d_hor = calc_d_hor(h1,h2) % Inputs: Terminal heights [m]
+  global K;                       % Output: Combined radio horizon distance [km]
+  d_hor = 3.571*sqrt(K)*(sqrt(h1)+sqrt(h2));
+endfunction
 
 % Transceiver parameters #1
 f = 100;                          % [MHz]  Transceiver frequency
