@@ -29,12 +29,12 @@ function calc_k_factor
   WVP = 6.1094*exp(17.625*(T_0-273.15)/(T_0-30.11));
   RRI = (77.6/T_0)*(QNH+(4810*WVP)/T_0);
   K = 1/(1-0.04665*exp(0.005577*RRI));
-endfunctiona
+endfunction
 calc_k_factor;
 
 % Calculate smooth Earth radio horizon
-function d_hor = calc_d_hor(h1,h2) % Inputs: Terminal heights [m]
-  global K;                       % Output: Combined radio horizon distance [km]
+function d_hor = calc_d_hor(h1,h2)  % Inputs: Terminal heights [m]
+  global K;                         % Output: Combined radio horizon distance [km]
   d_hor = 3.571*sqrt(K)*(sqrt(h1)+sqrt(h2));
 endfunction
 
@@ -114,19 +114,18 @@ function calc_node_geodist_alts
   global node_count;
   global node_geodist_alts;
   node_geodist_alts = zeros(node_count,node_count,3);
-  node_geodist_alts(:,:,1)  = (node_xyz(:,1) - node_xyz(:,1)') .^ 2;          % Using Arun Giridhar's method for two dimensional distance
-  node_geodist_alts(:,:,1) += (node_xyz(:,2) - node_xyz(:,2)') .^ 2;          % https://octave.discourse.group/t/technique-exchange-computing-distances-between-points/2939
+  node_geodist_alts(:,:,1)  = (node_xyz(:,1) - node_xyz(:,1)') .^ 2; % Using Arun Giridhar's method for two dimensional distance
+  node_geodist_alts(:,:,1) += (node_xyz(:,2) - node_xyz(:,2)') .^ 2; % https://octave.discourse.group/t/technique-exchange-computing-distances-between-points/2939
   node_geodist_alts(:,:,1)  = sqrt (node_geodist_alts(:,:,1));
   node_geodist_alts(:,:,2) = node_geodist_alts(:,:,2) + node_xyz(:,3)*1000;
   node_geodist_alts(:,:,3) = node_geodist_alts(:,:,3) + node_xyz(:,3)'*1000;
 endfunction
 
-calc_node_geodist_alts;
-
 % Calculate node received powers using ITU-R P.528-5 implementation by Ivica Stevanovic https://doi.org/10.5281/zenodo.6984262
-function calc_node_rx_pwr_p528
+function p528_result = calc_node_rx_pwr_p528
   disp("Calculating node received powers using free space loss...")
   tic
+  calc_node_geodist_alts;
   global node_geodist_alts;
   global node_tx_pwr;
   global node_rx_pwr;
