@@ -4,7 +4,7 @@ global k; k = 1.38064852*10^-23;  % [J/K]  Bolzmann's constant
 global T_0; T_0 = 290;            % [K]    Ambient temperature
 global WVP;                       % [hPa]  Water vapour pressure
 global RRI;                       % [N]    Radio refractivity index
-global QNH; QNH = 1013.25;        % [hPa]  Atmospheric pressure
+global QNH; QNH = 960;            % [hPa]  Atmospheric pressure
 global K;                         % num.   Earth effective radius factor
 
 function retval = num2db(val)     % Convert a linear number to decibels
@@ -19,25 +19,16 @@ function retval = watt2dbm(val)   % Convert Watts [W] to decibelmilliwatts [dBm]
   retval = 30 + num2db(val);      % Input: Watt [W]
 endfunction                       % Output: decibelmilliwatt [dBm]
 
-function calc_wvp                 % Calculate water vapour pressure using Magnus formula
-  global T_0;                     % Output: water vapour pressure in [kPa] using ambient temperature
-  global WVP;
-  WVP = 6.1094*exp(17.625*(T_0-273.15)/(T_0-30.11));
-endfunction
-calc_wvp;
-
-function calc_r_index             % Calculate radio refractivity index using ITU-R P.453-14 Eq. (7)
-  global T_0;                     % Output: radio refractivity index in N-units
+% Calculate Earth effective radius factor K
+function calc_k_factor
+  global T_0;
   global WVP;
   global RRI;
   global QNH;
-  RRI = (77.6/T_0)*(QNH+(4810*WVP)/T_0);
-endfunction
-calc_r_index;
-
-function calc_k_factor            % Calculate Earth effective radius factor using Siwiak & Bahreini (2017) Eq. (4.14)
-  global RRI;                     % Output: Eath effective radius factor K
-  K = 1/(1-0.04665*exp(0.005577*RRI));
+  global K;
+  WVP = 6.1094*exp(17.625*(T_0-273.15)/(T_0-30.11)); % Water vapour pressure using August-Roche-Magnus -formula
+  RRI = (77.6/T_0)*(QNH+(4810*WVP)/T_0);             % Radio refractivity index using ITU-R P.453-14 Eq. (7)
+  K = 1/(1-0.04665*exp(0.005577*RRI));               % K-factor using Siwiak & Bahreini (2017) Eq. (4.14)
 endfunction
 calc_k_factor;
 
