@@ -1,4 +1,5 @@
 %%% UNFINISHED
+%%% DEPRECATED
 
 % Calculate node received powers using ITU-R P.528-5 implementation by Ivica Stevanovic https://doi.org/10.5281/zenodo.6984262
 function calc_node_rx_pwr_p528

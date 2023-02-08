@@ -1,8 +1,9 @@
-% Calculate node received powers using ITS path loss model (Itse Tehty Säästömalli)
-function calc_node_rx_pwr_its
-  disp("Calculating node received powers using ITS...")
+% Calculate node path losses using ITS model (Itse Tehty Säästömalli)
+function calc_node_path_loss_its
+  disp("Calculating node path losses using ITS...")
   tic
   global node_dist;
+  global node_path_loss;
   global node_tx_pwr;
   global node_rx_pwr;
   global L_0;
