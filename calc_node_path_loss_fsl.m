@@ -6,7 +6,6 @@ function calc_node_path_loss_fsl
   global c;
   global node_dist;
   global node_path_loss;
-  global L_0;
 
   lambda = c/(f*10^6);              % [m]    Transceiver wave length
   r_0 = 1000;                       % [m]    Path loss reference distance
