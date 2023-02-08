@@ -53,7 +53,8 @@ node_tx_pwr = [100;15;15;15;15;15;15;15;15;15;15;15;15;15;15;15;15;15;15;15;15;1
 
 calc_node_dist;                   % Calculate node 3D distances
 calc_node_d_hor;                  % Calcaulta node radio horizons
-calc_node_path_loss_fsl;          % Calculate path losses using parametric variant of ITU-R P.525-4 spreading loss model
+% calc_node_path_loss_fsl;          % Calculate path losses using parametric variant of ITU-R P.525-4 spreading loss model
+calc_node_path_loss_its;          % Calculate path losses using ITS model
 calc_node_rx_pwr;                 % Calculate node received powers
 calc_node_cnr;                    % Calculate node carrier-to-noise ratios
 calc_node_jsr(1);                 % Calculate node jamming-to-signal ratios
