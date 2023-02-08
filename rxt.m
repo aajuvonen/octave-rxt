@@ -1,7 +1,7 @@
 clear all
 close all
 clc
-ignore_function_time_stamp ("all")
+% ignore_function_time_stamp ("all")
 
 % Ambient parameters
 global c; c = 299792458;          % [m/s]  Speed of light
@@ -10,38 +10,7 @@ global T_0; T_0 = 270;            % [K]    Ambient temperature
 global WVP;                       % [hPa]  Water vapour pressure
 global RRI;                       % [N]    Radio refractivity index
 global QNH; QNH = 961;            % [hPa]  Atmospheric pressure
-global K;                         % num.   Earth effective radius factor
-
-function retval = num2db(val)     % Convert a linear number to decibels
-  retval = 10*log10(val);         % Input: numeric
-endfunction                       % Output: decibel [dB]
-
-function retval = db2num(val)     % Convert desibels to a linear number
-  retval = 10^(val/10);           % Input: decibel [dB]
-endfunction                       % Output: numeric
-
-function retval = watt2dbm(val)   % Convert Watts [W] to decibelmilliwatts [dBm]
-  retval = 30 + num2db(val);      % Input: Watt [W]
-endfunction                       % Output: decibelmilliwatt [dBm]
-
-% Calculate Earth effective radius factor K
-function calc_k_factor
-  global T_0;
-  global QNH;
-  global WVP;                     % Water vapour pressure using August-Roche-Magnus -formula
-  global RRI;                     % Radio refractivity index using ITU-R P.453-14 Eq. (7)
-  global K;                       % K-factor using Siwiak & Bahreini (2017) Eq. (4.14)
-  WVP = 6.1094*exp(17.625*(T_0-273.15)/(T_0-30.11));
-  RRI = (77.6/T_0)*(QNH+(4810*WVP)/T_0);
-  K = 1/(1-0.04665*exp(0.005577*RRI));
-endfunction
-calc_k_factor;
-
-% Calculate smooth Earth radio horizon
-function d_hor = calc_d_hor(h1,h2)  % Inputs: Terminal heights [m]
-  global K;                         % Output: Combined radio horizon distance [km]
-  d_hor = 3.571*sqrt(K)*(sqrt(h1)+sqrt(h2));
-endfunction
+global K; calc_k_factor;          % num.   Earth effective radius factor
 
 % Transceiver parameters #1
 f = 100;                          % [MHz]  Transceiver frequency
@@ -59,7 +28,7 @@ L_ref = ((4*pi*r_0)/lambda)^2;    % num.   Path loss in reference distance
 global L_0; L_0 = num2db(L_ref);  % [dB]   Path loss in reference distance in decibels
 L_sf = 6;                         % [dB]   Path loss variation standard deviation
 L_sf_p = L_sf*1.644853627;        % [dB]   Path loss variation for 95% confidence
-global q; q = 50;                 % [%]    Time percentage for P.528
+global q; q = 50;                 % [%]    Time percentage for channel usability
 
 % Transceiver parameters #2
 global N_tot; N_tot = N_0 + N_F + L_sf;   % [dBm]  Transceiver noise floor
@@ -85,186 +54,13 @@ node_count = length(node_xyz);    % num.   Number of transceivers
 % Node transceiver parameters 
 node_tx_pwr = [100;15;15;15;15;15;15;15;15;15;15;15;15;15;15;15;15;15;15;15;15;15;15;15;15;15;15;15;15;15;15;15;15;15;15;15;15;15;15;15;15;15;15;15;15;15;15;15;15;15];
 
-% Calculate node three dimensional distances 
-function calc_node_dist
-  global node_xyz;
-  global node_dist;
-  node_dist  = (node_xyz(:,1) - node_xyz(:,1)') .^ 2; % Using Arun Giridhar's method for three dimensional distance
-  node_dist += (node_xyz(:,2) - node_xyz(:,2)') .^ 2; % https://octave.discourse.group/t/technique-exchange-computing-distances-between-points/2939
-  node_dist += (node_xyz(:,3) - node_xyz(:,3)') .^ 2;
-  node_dist = sqrt (node_dist);
-endfunction
+calc_node_dist;                   % Calculate node 3D distances
+calc_node_rx_pwr_fsl;             % Calculate path losses using parametric variant of ITU-R P.525-4 spreading loss model
+calc_node_cnr;                    % Calculate node carrier-to-noise ratios
+calc_node_jsr(1);                 % Calculate node jamming-to-signal ratios
 
-calc_node_dist;
+global graph_node_link;           % Graph for node links
+draw_graph_node_link;             % Draw graph for node links
 
-% Calculate node received powers using free space loss with parametric path loss exponent
-function calc_node_rx_pwr_fsl
-  disp("Calculating node received powers using free space loss...")
-  disp("To calculate using ITU-R P.528-5, call 'calc_node_rx_pwr_p528'")
-  tic
-  global node_dist;
-  global node_tx_pwr;
-  global node_rx_pwr;
-  global L_0;
-  global alpha;
-  node_rx_pwr = -1*(L_0 + 10*log10(node_dist.^alpha) - watt2dbm(node_tx_pwr));
-  toc
-endfunction
-  
-calc_node_rx_pwr_fsl;
-
-% Calculate node great circle path distances and altitudes
-function calc_node_geodist_alts
-  global node_xyz;
-  global node_count;
-  global node_geodist_alts;
-  node_geodist_alts = zeros(node_count,node_count,3);
-  node_geodist_alts(:,:,1)  = (node_xyz(:,1) - node_xyz(:,1)') .^ 2; % Using Arun Giridhar's method for two dimensional distance
-  node_geodist_alts(:,:,1) += (node_xyz(:,2) - node_xyz(:,2)') .^ 2; % https://octave.discourse.group/t/technique-exchange-computing-distances-between-points/2939
-  node_geodist_alts(:,:,1)  = sqrt (node_geodist_alts(:,:,1));
-  node_geodist_alts(:,:,2) = node_geodist_alts(:,:,2) + node_xyz(:,3)*1000;
-  node_geodist_alts(:,:,3) = node_geodist_alts(:,:,3) + node_xyz(:,3)'*1000;
-endfunction
-
-% Calculate node received powers using ITU-R P.528-5 implementation by Ivica Stevanovic https://doi.org/10.5281/zenodo.6984262
-function calc_node_rx_pwr_p528
-  disp("Calculating node received powers using ITU-R P.528-5...")
-  tic
-  calc_node_geodist_alts;
-  global node_geodist_alts;
-  % global node_tx_pwr;
-  % global node_rx_pwr;
-  global f;
-  global q;
-
-  % p528_result = zeros(length(node_geodist_alts),length(node_geodist_alts));
-  % p528_result(1,2) = tl_p528(node_geodist_alts(1,2,1),min(node_geodist_alts(1,2,2:3)),max(node_geodist_alts(1,2,2:3)),f,0,q).A__db;
-
-  p528_result = zeros(length(node_geodist_alts),length(node_geodist_alts));
-  for i = 1:length(node_geodist_alts)
-    for j = 1:length(node_geodist_alts)
-      p528_result(i,j) = tl_p528(node_geodist_alts(i,j,1),min(node_geodist_alts(i,j,2:3)),max(node_geodist_alts(i,j,2:3)),f,0,q).("A__db");
-    endfor
-  endfor
-
-  node_rx_pwr = -1*p528_result - watt2dbm(node_tx_pwr);
-  toc
-endfunction
-
-% Calculate node carrier-to-noise ratios
-function calc_node_cnr
-  disp("Calculating node carrier-to-noise ratios...")
-  tic
-  global node_cnr;
-  global node_rx_pwr;
-  global N_tot;
-  node_cnr = node_rx_pwr - N_tot;
-  toc
-endfunction
-
-calc_node_cnr;
-
-% Calculate node jamming-to-signal ratios
-% Input: jammer node index (optional)
-function calc_node_jsr(jammer)
-  disp("Calculating node jamming-to-signal ratios...")
-  tic
-  global node_tx_pwr;
-  global node_rx_pwr;
-  global node_jsr;
-  global S_min
-  if isempty(jammer)
-    jammer = 1;
-  end
-  node_jsr = node_rx_pwr - node_rx_pwr(jammer,:);
-  node_jsr (jammer,:) = -1*S_min + node_rx_pwr (jammer,:);
-  toc
-endfunction
-
-calc_node_jsr(1);
-
-% Graph node links
-global graph_node_link;
-
-function draw_graph_node_link
-  disp("Graphing node links...")
-  tic
-  global node_rx_pwr;
-  global graph_node_link;
-  global S_min;
-  graph_node_link = node_rx_pwr;
-  graph_node_link(~isfinite(graph_node_link)) = -Inf;
-  graph_node_link = graph_node_link > S_min;
-  toc
-endfunction
-
-draw_graph_node_link;
-
-% Graph jamming-to-signal ratio
-global graph_node_jsr;
-
-function draw_graph_node_jsr
-  disp("Graphing jamming-to-signal ratio...")
-  tic
-  global node_jsr;
-  global graph_node_jsr;
-  global SNR_req;
-  graph_node_jsr = node_jsr;
-  graph_node_jsr(~isfinite(graph_node_jsr)) = 0;
-  graph_node_jsr = graph_node_jsr > SNR_req;
-  toc
-endfunction
-
-draw_graph_node_jsr;
-
-% Plot node jamfree links
-function plot_node_links
-  disp("Plotting node jamfree links...")
-  tic
-  global node_xyz;
-  global node_count;
-  global graph_node_link;
-  global nodes;
-  global edges;
-  global labels;
-
-  nodes = node_xyz (:,1:2);                             % Get node xy list
-  edges = getEdges(graph_node_link,'adjacency')(:,1:2); % Get edge list
-  labels = [1:node_count]';                             % Get node numeric labels
-  plot_worker;                                          % Call plot worker function
-  toc
-endfunction
-
-% Plot node links under jamming
-function plot_node_jsr
-  disp("Plotting node links under jamming...")
-  tic
-  global node_xyz;
-  global node_count;
-  global graph_node_jsr;
-  global nodes;
-  global edges;
-  global labels;
-
-  nodes = node_xyz (:,1:2);                             % Get node xy list
-  edges = getEdges(graph_node_jsr,'adjacency')(:,1:2);  % Get edge list
-  labels = [1:node_count]';                             % Get node numeric labels
-  plot_worker;                                          % Call plot worker function
-  toc
-endfunction
-
-% Draw graphs with octave-matgeom and octave-networks-toolbox
-function plot_worker
-  global nodes;
-  global edges;
-  global labels;
-
-  close all;                                            % Close all plots
-  axis([0 500 0 500],"equal");                          % Set plot axes to 0...500
-  pkg load matgeom;                                     % Load matgeom
-  drawDirectedEdges(nodes,edges);                       % Draw directed edges
-  plot_labels = drawNodeLabels(nodes,labels);           % Draw node labels
-  set(plot_labels,"fontsize",12);                       % Resize node label font
-  plot(nodes(:,1),nodes(:,2),".k","markersize",8);      % Draw nodes
-  pkg unload matgeom;                                   % Unload matgeom
-endfunction
+global graph_node_jsr;            % Graph for jamming-to-signal ratio
+draw_graph_node_jsr;              % Draw graph for jamming-to-signal ratio
