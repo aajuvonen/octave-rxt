@@ -1,7 +1,7 @@
 clear all
 close all
 clc
-% ignore_function_time_stamp ("all")
+ignore_function_time_stamp ("all")
 
 % Ambient parameters
 global c; c = 299792458;          % [m/s]  Speed of light
@@ -37,7 +37,7 @@ global node_xyz;                  % [km]   Node relative x, y, and z coordinates
 global node_dist;                 % [km]   Node absolute distances in three dimensional space
 global node_d_hor;                % [km]   Node radio horizon distances
 global node_path_loss;            % [dB]   Node path losses
-% global node_geodist_alts;         % var.   Node great circle path distances [km] and altitudes [m]
+global node_geodist_alts;         % var.   Node great circle path distances [km] and altitudes [m]
 global node_tx_pwr;               % [W]    Node transmitted power
 global node_rx_pwr;               % [dBm]  Node received power
 global node_cnr;                  % [dB]   Node carrier-to-noise ratio
@@ -52,6 +52,7 @@ node_count = length(node_xyz);    % num.   Number of transceivers
 node_tx_pwr = [100;15;15;15;15;15;15;15;15;15;15;15;15;15;15;15;15;15;15;15;15;15;15;15;15;15;15;15;15;15;15;15;15;15;15;15;15;15;15;15;15;15;15;15;15;15;15;15;15;15];
 
 calc_node_dist;                   % Calculate node 3D distances
+% calc_node_geodist_alts;           % Calculate Node great circle path distances
 calc_node_d_hor;                  % Calcaulta node radio horizons
 % calc_node_path_loss_fsl;          % Calculate path losses using parametric variant of ITU-R P.525-4 spreading loss model
 calc_node_path_loss_its;          % Calculate path losses using ITS model
