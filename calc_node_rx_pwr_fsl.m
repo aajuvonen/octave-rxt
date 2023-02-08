@@ -1,7 +1,6 @@
 % Calculate node received powers using free space loss with parametric path loss exponent
 function calc_node_rx_pwr_fsl
   disp("Calculating node received powers using free space loss...")
-  disp("To calculate using ITU-R P.528-5, call 'calc_node_rx_pwr_p528'")
   tic
   global node_dist;
   global node_tx_pwr;

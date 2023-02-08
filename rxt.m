@@ -40,7 +40,8 @@ G_ant = 0;                        % [dB]   Transceiver antenna gain
 % Simulation parameters
 global node_xyz;                  % [km]   Node relative x, y, and z coordinates
 global node_dist;                 % [km]   Node absolute distances in three dimensional space
-global node_geodist_alts;         % var.   Node great circle path distances [km] and altitudes [m]
+global node_d_hor;                % [km]   Node radio horizon distances
+% global node_geodist_alts;         % var.   Node great circle path distances [km] and altitudes [m]
 global node_tx_pwr;               % [W]    Node transmitted power
 global node_rx_pwr;               % [dBm]  Node received power
 global node_cnr;                  % [dB]   Node carrier-to-noise ratio
@@ -55,6 +56,7 @@ node_count = length(node_xyz);    % num.   Number of transceivers
 node_tx_pwr = [100;15;15;15;15;15;15;15;15;15;15;15;15;15;15;15;15;15;15;15;15;15;15;15;15;15;15;15;15;15;15;15;15;15;15;15;15;15;15;15;15;15;15;15;15;15;15;15;15;15];
 
 calc_node_dist;                   % Calculate node 3D distances
+calc_node_d_hor;                  % Calcaulta node radio horizons
 calc_node_rx_pwr_fsl;             % Calculate path losses using parametric variant of ITU-R P.525-4 spreading loss model
 calc_node_cnr;                    % Calculate node carrier-to-noise ratios
 calc_node_jsr(1);                 % Calculate node jamming-to-signal ratios
