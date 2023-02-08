@@ -13,8 +13,7 @@ global QNH; QNH = 961;            % [hPa]  Atmospheric pressure
 global K; calc_k_factor;          % num.   Earth effective radius factor
 
 % Transceiver parameters #1
-f = 100;                          % [MHz]  Transceiver frequency
-lambda = c/(f*10^6);              % [m]    Transceiver wave length
+global f; f = 100;                % [MHz]  Transceiver frequency
 B = 25000;                        % [Hz]   Transceiver bandwidth
 N_F = 10;                         % [dB]   Transceiver noise figure
 global SNR_req; SNR_req = 10;     % [dB]   Transceiver signal-to-noise ratio requirement
@@ -22,10 +21,6 @@ N_ktb = k*T_0*B;                  % [W/Hz] Transceiver thermal noise
 N_0 = watt2dbm(N_ktb);            % [dBm]  Transceiver thermal noise in decibelmilliwatts
 
 % Channel parameters
-r_0 = 1000;                       % [m]    Path loss reference distance
-global alpha; alpha = 2;          % num.   Path loss exponent
-L_ref = ((4*pi*r_0)/lambda)^2;    % num.   Path loss in reference distance
-global L_0; L_0 = num2db(L_ref);  % [dB]   Path loss in reference distance in decibels
 L_sf = 6;                         % [dB]   Path loss variation standard deviation
 L_sf_p = L_sf*1.644853627;        % [dB]   Path loss variation for 95% confidence
 global q; q = 50;                 % [%]    Time percentage for channel usability
