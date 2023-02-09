@@ -4,7 +4,7 @@
 
 Nothing beats pen and paper, really, unless you need volume. Moreover, professional software is hardly transparent. More often than not their feature sets are also total overkills for quick work.
 
-Enter RXT: it pulls off thousands upon thousands ballpark calculations in a transparent manner. 
+Enter RXT: it pulls off thousands upon thousands ballpark propagation and interference analysis calculations in a transparent manner.
 
 Development objectives:
 * Accurate modelling where reasonable, otherwise usability and speed is prioritised.
