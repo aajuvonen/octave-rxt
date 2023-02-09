@@ -8,12 +8,18 @@ Enter RXT: it pulls off thousands upon thousands ballpark calculations in a tran
 
 Development objectives:
 * Accurate modelling where reasonable, otherwise usability and speed is prioritised.
-* Routines for generating radio network graphs (in graph theoretic sense) 
+* Routines for generating radio network graphs (in graph theoretic sense) compatible with `octave-networks-toolbox`.
+* Feature creep avoidance.
 
 ## How to use?
 
+Install GNU/Octave or MatLab.
+
 Clone the repository and run `rxt.m`.
 
+### Function reference
+
+Lorem Ipsum
 
 ### What is the ITS path loss model?
 
