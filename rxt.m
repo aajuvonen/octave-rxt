@@ -11,13 +11,11 @@ global QNH; QNH = 961;            % [hPa]  Atmospheric pressure
 global WVP;                       % [hPa]  Water vapour pressure
 global RRI;                       % [N]    Radio refractivity index
 global K; calc_k_factor;          % num.   Earth effective radius factor
-
-% Channel parameters
-L_sf = 6;                         % [dB]   Path loss variation standard deviation
 global q; q = 50;                 % [%]    Channel time availability
+L_sf = 6;                         % [dB]   Path loss variation standard deviation
 L_sf_p = L_sf*norm_inv(q);        % [dB]   Path loss variation for the corresponding time availability
 
-% Transceiver parameters #1
+% Transceiver parameters
 global f; f = 100;                % [MHz]  Transceiver frequency
 B = 25000;                        % [Hz]   Transceiver bandwidth
 N_F = 10;                         % [dB]   Transceiver noise figure
