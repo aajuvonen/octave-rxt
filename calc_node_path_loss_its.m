@@ -1,3 +1,5 @@
+%%% UNFINISHED
+
 % Calculate node path losses using ITS model (Itse Tehty Säästömalli)
 function calc_node_path_loss_its
   disp("Calculating node path losses using ITS...")

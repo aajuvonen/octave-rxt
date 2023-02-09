@@ -35,7 +35,8 @@ G_ant = 0;                        % [dB]   Transceiver antenna gain
 % Simulation parameters
 global node_xyz;                  % [km]   Node relative x, y, and z coordinates
 global node_dist;                 % [km]   Node absolute distances in three dimensional space
-global node_d_hor;                % [km]   Node radio horizon distances
+global node_d_hor;                % [km]   Node total radio horizon distances
+global node_d_hor_single;         % [km]   Node radio horizon distances to spherical Earth
 global node_path_loss;            % [dB]   Node path losses
 global node_geodist_alts;         % var.   Node great circle path distances [km] and altitudes [m]
 global node_tx_pwr;               % [W]    Node transmitted power

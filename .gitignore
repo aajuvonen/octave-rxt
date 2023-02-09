@@ -65,5 +65,6 @@ codegen/
 
 # Octave session info
 octave-workspace
+private/
 
 # End of https://www.toptal.com/developers/gitignore/api/octave,macos
