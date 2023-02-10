@@ -1,6 +1,6 @@
 % Calculate node received powers using free space loss with parametric path loss exponent 
 function calc_node_path_loss_fsl
-  disp("Calculating node path losses using free space loss...")
+  printf("Calculating node path losses using free space loss... ")
   tic
   globals
   lambda = c/(f*10^6);              % [m]    Transceiver wave length
@@ -11,5 +11,5 @@ function calc_node_path_loss_fsl
 
   % Multiply reference loss by node distances
   node_path_loss = -1*(L_0 + 10*log10(node_dist.^alpha));
-  toc
+  disp(toc)
 endfunction

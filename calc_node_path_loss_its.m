@@ -1,6 +1,6 @@
 % Calculate node path losses using ITS model (Itse Tehty Säästömalli)
 function calc_node_path_loss_its
-  disp("Calculating node path losses using ITS...")
+  printf("Calculating node path losses using ITS... ")
   tic
   globals
   lambda = c/(f*10^6);                          % [m]    Transceiver wave length
@@ -26,5 +26,5 @@ function calc_node_path_loss_its
 
   % Sum diffraction and scattering phases to path loss
   node_path_loss += loss_dif + loss_sca;
-  toc
+  disp(toc)
 endfunction
