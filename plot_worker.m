@@ -1,8 +1,6 @@
 % Draw graphs with octave-matgeom and octave-networks-toolbox
 function plot_worker
-  global nodes;
-  global edges;
-  global labels;
+  globals
   close all;                                            % Close all plots
   axis([0 500 0 500],"equal");                          % Set plot axes to 0...500
   pkg load matgeom;                                     % Load matgeom

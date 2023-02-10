@@ -2,14 +2,7 @@
 function calc_node_path_loss_its
   disp("Calculating node path losses using ITS...")
   tic
-  global f;
-  global c;
-  global node_dist;
-  global node_d_hor;
-  global node_path_loss;
-  global q;
-  global alpha_curve;
-
+  globals
   lambda = c/(f*10^6);                          % [m]    Transceiver wave length
   r_0 = 1000;                                   % [m]    Path loss reference distance
   L_ref = ((4*pi*r_0)/lambda)^2;                % num.   Path loss in reference distance

@@ -3,10 +3,7 @@
 function calc_node_jsr(jammer)
   disp("Calculating node jamming-to-signal ratios...")
   tic
-  global node_tx_pwr;
-  global node_rx_pwr;
-  global node_jsr;
-  global S_min
+  globals
   if isempty(jammer)
     jammer = 1;
   end
