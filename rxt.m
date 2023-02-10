@@ -12,23 +12,26 @@ global WVP;                       % [hPa]  Water vapour pressure
 global RRI;                       % [N]    Radio refractivity index
 global K; calc_k_factor;          % num.   Earth effective radius factor
 global q; q = 50;                 % [%]    Channel time availability
-L_sf = 6;                         % [dB]   Path loss variation standard deviation
-L_sf_p = L_sf*norm_inv(q);        % [dB]   Path loss variation for the corresponding time availability
+global L_sf_std; L_sf_std = 6;    % [dB]   Path loss variation standard deviation
+global L_sf;                      % [dB]   Path loss variation for the corresponding time availability
+L_sf = L_sf_std*norm_inv(q);
 
-% Transceiver parameters
+% Receiver parameters
 global f; f = 100;                % [MHz]  Transceiver frequency
-B = 25000;                        % [Hz]   Transceiver bandwidth
-N_F = 10;                         % [dB]   Transceiver noise figure
+global B; B = 25000;              % [Hz]   Transceiver bandwidth
+global N_F; N_F = 10;             % [dB]   Transceiver noise figure
 global SNR_req; SNR_req = 10;     % [dB]   Transceiver signal-to-noise ratio requirement
-N_ktb = k*T_0*B;                  % [W/Hz] Transceiver thermal noise
-N_0 = watt2dbm(N_ktb);            % [dBm]  Transceiver thermal noise in decibelmilliwatts
-global N_tot;
-N_tot = N_0 + N_F + L_sf;         % [dBm]  Transceiver noise floor
-global S_min;
-S_min = N_tot + SNR_req;          % [dBm]  Transceiver detection threshold
+global N_tot;                     % [dBm]  Transceiver noise floor
+global S_min;                     % [dBm]  Transceiver detection threshold
+calc_rx_params;
+
+%%% UNFINISHED PARAMETERS BEGIN
+% Missing calculation routines
+% Missing antenna files and directivity data
 L_int = 0;                        % [dB]   Transceiver cumulative internal losses
 G_pro = 0;                        % [dB]   Transceiver processing gain
 G_ant = 0;                        % [dB]   Transceiver antenna gain
+%%% UNFINISHED PARAMETERS END
 
 % Simulation parameters
 global node_xyz;                  % [km]   Node relative x, y, and z coordinates
