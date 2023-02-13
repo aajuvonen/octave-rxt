@@ -11,15 +11,28 @@ Development objectives:
 * Routines for generating radio network graphs (in graph theoretic sense) compatible with `octave-networks-toolbox`.
 * Feature creep avoidance.
 
-## How to use?
+# How to use?
 
 Install GNU/Octave or MatLab.
 
 Clone the repository and run `rxt.m`.
 
-### Function reference
+## Function reference
 
 Lorem Ipsum
+
+
+## Using with octave-networks-toolbox
+
+The following sequence sequence avoids having RxT's routines in the same folder with `octave-networks-toolbox`'s, and allows using RxT's graphs in `octave-networks-toolbox`'s routines:
+
+1. Copy `octave-networks-toolbox` to RxT's directory (e.g., by running `git clone https://github.com/aeolianine/octave-networks-toolbox`).
+2. Rename the `octave-networks-toolbox/` directory to `private/`. This allows Octave to run the scripts.
+3. Navigate to `rxt/private/` and run Octave (e.g., `octave --gui`). Use `cd ..` in Octave to navigate to `rxt/`
+4. Run `rxt`, and navigate back to `octave-networks-toolbox` directory with `cd private/`
+
+`example/aeronautical_interference.m` will be used in the following examples as a data source source. Run for example `linkDensity(graph_node_jsr)` to confirm that routines are accessible correctly. To find strongly connected components, run `tarjan(adj2adjL(graph_node_jsr))`.
+
 
 ### What is the ITS path loss model?
 
@@ -38,8 +51,7 @@ The development and testing has been conducted on GUN/Octave. Most of the functi
 
 Required external resources:
 * `plot_node_d_hor.m` depends on `matgeom`. To install `matgeom` run `pkg install -forge matgeom`.
-
-* `plot_worker.m` depends on matgeom and `octave-networks-toolbox`. To use `octave-networks-toolbox` copy it to `rxt`'s directory (e.g., by running `git clone https://github.com/aeolianine/octave-networks-toolbox`). Rename the folder to `private`. This allows Octave to run the scripts.
+* `plot_worker.m` depends on matgeom and `octave-networks-toolbox`.
 
 
 
