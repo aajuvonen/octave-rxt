@@ -1,5 +1,5 @@
 % Calculate path losses using ITS model (Itse Tehty Säästömalli)
-function path_loss_its = calc_path_loss_its(param_dist,param_h1,param_h2,param_timeq)
+function path_loss_its = model_its(param_dist,param_h1,param_h2,param_timeq)
   printf("Calculating path losses using ITS... ")
   tic
   globals
