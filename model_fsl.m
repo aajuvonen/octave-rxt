@@ -2,8 +2,6 @@
 % Inputs: distance [km], path loss exponent
 % Output: path loss [dB]
 function path_loss_fsl = model_fsl(param_dist,param_alpha)
-  printf("Calculating path losses using free space loss... ")
-  tic
   globals
   lambda = c/(f*10^6);              % [m]    Transceiver wave length
   r_0 = 1000;                       % [m]    Path loss reference distance
@@ -13,5 +11,4 @@ function path_loss_fsl = model_fsl(param_dist,param_alpha)
 
   % Multiply reference loss by node distances
   path_loss_fsl = -1*(L_0 + 10*log10(param_dist.^param_alpha));
-  disp(toc)
 endfunction

@@ -2,8 +2,6 @@
 % Inputs: distance [km], terminal 1 height [m], terminal 2 height [m], time availability [%]
 % Output: path loss [dB]
 function path_loss_its = model_its(param_dist,param_h1,param_h2,param_timeq)
-  printf("Calculating path losses using ITS... ")
-  tic
   globals
   lambda = c/(f*10^6);                                      % [m]    Transceiver wave length
   r_0 = 1000;                                               % [m]    Path loss reference distance
@@ -33,5 +31,4 @@ function path_loss_its = model_its(param_dist,param_h1,param_h2,param_timeq)
 
   % Sum diffraction and scattering phases to path loss
   path_loss_its = path_loss_its - loss_dif - loss_sca;
-  disp(toc)
 endfunction

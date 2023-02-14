@@ -1,5 +1,5 @@
 disp("RxT - Exemplary aeronautical interference calculations")
-disp("  (c) Artturi Juvonen 13 Feb 2023")
+disp("  (c) Artturi Juvonen 14 Feb 2023")
 disp("      artturi@juvonen.eu")
 disp("")
 
@@ -14,11 +14,10 @@ node_tx_pwr(:,1) = [100;15;15;15;15;15;15;15;15;15;15;15;15;15;15;15;15;15;15;15
 
 % Node transmittance status [bool]
 node_tx_pwr(:,2) = [1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1,1,0,1,1,0,0,1,1,0,1,1,1,1,1,1,0,0,1,1,0,1,0,1,1,1,0,1,1,0,1,1,1,1,1];
+% node_tx_pwr(:,2) = ones(1,50);
 
-calc_node_dist;                   % Calculate node 3D distances
-% calc_node_geodist_alts;           % Calculate Node great circle path distances
-calc_node_d_hor;                  % Calcaulta node radio horizons
-%calc_node_path_loss_fsl;          % Calculate path losses using parametric variant of ITU-R P.525-4 spreading loss model
+% calc_node_d_hor;                  % Calcaulta node radio horizons
+% calc_node_path_loss_fsl;          % Calculate path losses using parametric variant of ITU-R P.525-4 spreading loss model
 calc_node_path_loss_its;          % Calculate path losses using ITS model
 calc_node_rx_pwr;                 % Calculate node received powers
 calc_node_cnr;                    % Calculate node carrier-to-noise ratios
