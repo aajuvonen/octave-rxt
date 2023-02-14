@@ -17,14 +17,14 @@ function calc_node_path_loss_its
   loss_dif = node_dist - node_d_hor;            % Path distance after radio horizon
   loss_dif = loss_dif.*(loss_dif>0);            % Clamp path distance to range 0...Inf
   loss_dif = loss_dif.*(loss_dif<dist_dif);     % Clamp to range d < dist_dif
-  loss_dif.*-6.7;                               % Diffraction phase loss of 6.7 dB per km
+  loss_dif.*6.7;                                % Diffraction phase loss of 6.7 dB per km
   
   % Approximate scattering phase losses for distances d > dist_dif
   loss_sca = node_dist - node_d_hor - dist_dif; % Path distance after diffraction
   loss_sca = loss_sca.*(loss_sca>0);            % Clamp path distance to range 0...Inf
-  loss_sca.*-0.5;                               % Scattering phase loss of 0.5 dB per km
+  loss_sca.*0.5;                                % Scattering phase loss of 0.5 dB per km
 
   % Sum diffraction and scattering phases to path loss
-  node_path_loss += loss_dif + loss_sca;
+  node_path_loss -= loss_dif + loss_sca;
   disp(toc)
 endfunction
