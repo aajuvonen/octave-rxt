@@ -1,4 +1,6 @@
 % Calculate free space loss with parametric path loss exponent 
+% Inputs: distance [km], path loss exponent
+% Output: path loss [dB]
 function path_loss_fsl = model_fsl(param_dist,param_alpha)
   printf("Calculating path losses using free space loss... ")
   tic
