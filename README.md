@@ -2,14 +2,12 @@
 
 **RxT**, or **Rx Toolkit**, is meant for quick feasibility calculations when a napkin and a ball-point pen just don't quite cut it. The scripts incorporate simple radio propagation estimation routines and rudimentary plotting capabilities. RxT is not meant to replace or compete with professional radio network planning and analysis software such as **HTZ Warfare** or **WRAP**.
 
-Nothing beats pen and paper, really, unless you need volume. Moreover, professional software is hardly transparent. More often than not their feature sets are also total overkills for quick work.
-
-Enter RxT: it pulls off thousands upon thousands ballpark propagation and interference analysis calculations in a transparent manner.
+Nothing beats pen and paper unless you need volume. Moreover, professional software is hardly transparent, and more often than not their feature sets are overkills for quick work. Enter RxT: it pulls off thousands upon thousands ballpark propagation and interference analysis calculations in a transparent manner.
 
 Development objectives:
 * Accurate modelling where reasonable, otherwise usability and speed is prioritised.
 * Routines for generating radio network graphs (in graph theoretic sense) compatible with `octave-networks-toolbox`.
-* Feature creep avoidance.
+* Feature creep avoidance, over-engineering avoidance, and FAFO compliance.
 
 # How to use?
 
@@ -43,6 +41,11 @@ It's a poor man's curve-fitted approximation of ITU-R P.528-5. The model is fair
 The model has two primary perks over FSL:
 1. Estimation of time availability in line-of-sight propagation
 2. Estimation of Trans-horizon propagation path loss
+
+
+### What is FAFO compliance?
+
+Fool around, find out.
 
 
 ## Dependencies

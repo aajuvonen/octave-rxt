@@ -16,13 +16,12 @@ function path_loss_its = model_its(param_dist,param_h1,param_h2,param_timeq)
   d_hor = calc_d_hor(param_h1,param_h2);
 
   % Approximate diffraction phase losses for distances d_hor < d < dist_dif
-  dist_dif = d_hor*1.05;                                    % Maximum distance for diffraction
-  loss_dif = param_dist - d_hor;                            % Path distance after radio horizon
-  loss_dif = loss_dif.*(loss_dif>0);                        % Clamp path distance to range 0...Inf
-  loss_dif_inner = loss_dif.*(loss_dif<(dist_dif - d_hor)); % Clamp to range d < dist_dif
-  loss_dif_outer = loss_dif.*(loss_dif>(dist_dif - d_hor)); % Clamp to range d < dist_dif
-  loss_dif = loss_dif_inner.*6.7;                           % Diffraction phase loss of 6.7 dB per km
-  loss_dif += max(loss_dif).*(loss_dif_outer>0);            % Fill the rest of the matrix with the highest value
+  dist_dif = d_hor*1.05;                                         % Maximum distance for diffraction
+  loss_dif = param_dist - d_hor;                                 % Path distance after radio horizon
+  loss_dif_inner = loss_dif.*(loss_dif>0);                       % Clamp path distance to range 0...Inf
+  loss_dif_outer = (param_dist >= dist_dif).*(dist_dif - d_hor); % Clamp path distance to range d >= dist_dif
+  loss_dif_inner = loss_dif_inner.*(1-(loss_dif_outer > 0));     % Clamp path distance to range d < dist_dif
+  loss_dif = (loss_dif_inner + loss_dif_outer).*6.7;             % Diffraction phase loss of 6.7 dB per km
   
   % Approximate scattering phase losses for distances d > dist_dif
   loss_sca = param_dist - dist_dif;                         % Path distance after diffraction

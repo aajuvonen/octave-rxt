@@ -26,6 +26,7 @@ global G_pro;                     % [dB]   Transceiver processing gain
 global G_ant;                     % [dB]   Transceiver antenna gain
 
 % Simulation parameters
+global path_loss;                 % [dB]   Path loss vector
 global node_xyz;                  % [km]   Node relative x, y, and z coordinates
 global node_dist;                 % [km]   Node absolute distances in three dimensional space
 global node_dist_alts;            % var.   Node absolute distances in three dimensional space [km] and altitudes [m]
