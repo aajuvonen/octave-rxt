@@ -15,18 +15,20 @@ function path_loss_its = model_its(param_dist,param_h1,param_h2,param_timeq)
   % Calculate radio horizon distance
   d_hor = calc_d_hor(param_h1,param_h2);
 
-  % Approximate diffraction phase losses for distances d_hor < d < dist_dif
-  dist_dif = d_hor*1.05;                                         % Maximum distance for diffraction
+  % Approximate diffraction losses for distances d_hor < d < dist_dif
+  dist_dif = d_hor*1.22;                                         % Maximum distance for diffraction
   loss_dif = param_dist - d_hor;                                 % Path distance after radio horizon
   loss_dif_inner = loss_dif.*(loss_dif>0);                       % Clamp path distance to range 0...Inf
   loss_dif_outer = (param_dist >= dist_dif).*(dist_dif - d_hor); % Clamp path distance to range d >= dist_dif
   loss_dif_inner = loss_dif_inner.*(1-(loss_dif_outer > 0));     % Clamp path distance to range d < dist_dif
-  loss_dif = (loss_dif_inner + loss_dif_outer).*6.7;             % Diffraction phase loss of 6.7 dB per km
+  % loss_dif = (loss_dif_inner + loss_dif_outer).*6.7;             % Diffraction loss of 6.7 dB per km
+  loss_dif = (loss_dif_inner + loss_dif_outer).*(0.42 * (alpha_curve(param_timeq)-1)); % Diffraction loss
   
-  % Approximate scattering phase losses for distances d > dist_dif
+  % Approximate scattering losses for distances d > dist_dif
   loss_sca = param_dist - dist_dif;                         % Path distance after diffraction
   loss_sca = loss_sca.*(loss_sca>0);                        % Clamp path distance to range 0...Inf
-  loss_sca = loss_sca.*0.5;                                 % Scattering phase loss of 0.5 dB per km
+  % loss_sca = loss_sca.*0.5;                                 % Scattering loss of 0.5 dB per km
+  loss_sca = loss_sca.*(0.16 * (alpha_curve(param_timeq)-1.33)); % Scattering loss
 
   % Sum diffraction and scattering phases to path loss
   path_loss_its = path_loss_its - loss_dif - loss_sca;
