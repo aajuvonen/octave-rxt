@@ -1,10 +1,12 @@
 % Plot node singular radio horizons
 function plot_node_d_hor
   printf("Plotting node singular horizons... ")
-  tic
+  ticstart
   globals
+
   pkg load matgeom;
     drawCircle(node_xyz(:,1),node_xyz(:,2),node_d_hor_single);
   pkg unload matgeom;
-  disp(toc)
+  
+  ticstop
 endfunction

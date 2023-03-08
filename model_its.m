@@ -2,7 +2,7 @@
 % Inputs: distance [km], terminal 1 height [m], terminal 2 height [m], time availability [%]
 % Output: path loss [dB]
 
-function path_loss_its = model_its(param_dist,param_h1,param_h2,param_timeq)
+function path_loss_its = model_its(param_dist,param_h1,param_h2,param_timeq = 50)
   globals
   lambda = c/(f*10^6);                                                    % [m]    Transceiver wave length
   r_0 = 1000;                                                             % [m]    Path loss reference distance

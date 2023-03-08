@@ -1,5 +1,3 @@
-%%%DEPRECATED
-
 % Calculate node great circle path distances and altitudes
 function calc_node_geodist_alts
   globals
