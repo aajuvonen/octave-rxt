@@ -28,8 +28,13 @@ if(hints)
   disp("")
 
   disp("RxT can generate graphs for octave-networks-toolbox.")
-  disp("   1. Clone https://github.com/aeolianine/octave-networks-toolbox")
-  disp("   2. Navigate to 'octave-networks-toolbox/' to use its routines")
+  if(!nettools)
+  disp("   'octave-networks-toolbox/' folder not found.")
+  disp("   Clone https://github.com/aeolianine/octave-networks-toolbox") endif
+  if(nettools)
+  disp("   Generate graphs with RxT (e.g. 'graph_node_jsr')")
+  disp("   Navigate to 'octave-networks-toolbox/' to use its routines")
+  disp("   Hints for octave-networks-toolbox are marked with '*'") endif
   disp("")
 
   disp("To get started, run exemplary aeronautical interference calculations with:")

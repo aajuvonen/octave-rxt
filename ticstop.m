@@ -3,6 +3,6 @@
 function ticstop
   settings
   if(counter)
-    disp(toc)
+    printf('-> Runtime %3f seconds.\n', toc)
   endif
 endfunction

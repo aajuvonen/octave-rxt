@@ -49,4 +49,4 @@ calc_node_jsr(1);                 % Calculate node jamming-to-signal ratios
 draw_graph_node_link;             % Draw graph for node links
 draw_graph_node_jsr;              % Draw graph for jamming-to-signal ratio
 
-disp(" * To find strongly connected components, run 'tarjan(adj2adjL(graph_node_jsr))'.")
+if(nettools) disp(" * Call 'tarjan(adj2adjL(graph_node_jsr))' to find strongly connected components") endif
