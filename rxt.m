@@ -6,28 +6,33 @@ ignore_function_time_stamp ("all")
 globals                           % Declare global variables
 constants                         % Set constants
 
-% Ambient parameters
-T_0 = 270;                        % [K]    Ambient temperature
-QNH = 961;                        % [hPa]  Atmospheric pressure
-q = 50;                           % [%]    Channel time availability
-L_sf_std = 6;                     % [dB]   Path loss variation standard deviation
-L_sf = L_sf_std*norm_inv(q);      % [dB]   Path loss variation for the corresponding time availability
-calc_k_factor;                    % Calculate Earth effective radius factor K
+disp("RxT - Radio network modelling and graph generation")
+disp("   Artturi Juvonen 2023")
+disp("   artturi@juvonen.eu")
+disp("   MIT license, see LICENSE.md")
+disp("")
 
-% Receiver parameters
-f = 100;                          % [MHz]  Transceiver frequency
-B = 25000;                        % [Hz]   Transceiver bandwidth
-N_F = 10;                         % [dB]   Transceiver noise figure
-SNR_req = 10;                     % [dB]   Transceiver signal-to-noise ratio requirement
-calc_rx_params;                   % Calculate receiver parameters
+if(hints)
+  if(warnings)
+  disp("Warnings enabled.       Disable by setting 'warnings' to 'false'.") endif
+  if(counter)
+  disp("Runtime timer enabled.  Disable by setting 'counter' to 'false'.") endif
+  disp("Hints enabled.          Disable by setting 'hints' to 'false'.\n")
 
-%%% UNFINISHED PARAMETERS BEGIN
-% Missing calculation routines
-% Missing antenna files and directivity data
-L_int = 0;                        % [dB]   Transceiver cumulative internal losses
-G_pro = 0;                        % [dB]   Transceiver processing gain
-G_ant = 0;                        % [dB]   Transceiver antenna gain
-%%% UNFINISHED PARAMETERS END
+  disp("Path loss models:")
+  disp("   model_fsl.m          Generic spreading loss with parametric loss exponent")
+  disp("   model_hata_mod.m     Modified Hata for urban environments")
+  disp("   model_overhor.m      Empirical beyond-the-horizon propagation")
+  disp("   model_p1238.m        ITU-R P.1238-11 indoors propagation for small distances")
+  disp("   model_its.m          Aeronautical path loss, curve fitted to ITU-R P.528-5 line-of-sight mode")
+  disp("")
 
-% Run exemplary aeronautical interference calculations
-source example/aeronautical_interference.m
+  disp("RxT can generate graphs for octave-networks-toolbox.")
+  disp("   1. Clone https://github.com/aeolianine/octave-networks-toolbox")
+  disp("   2. Navigate to 'octave-networks-toolbox/' to use its routines")
+  disp("")
+
+  disp("To get started, run exemplary aeronautical interference calculations with:")
+  disp("   source example/aeronautical_interference.m")
+  disp("")
+endif

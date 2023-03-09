@@ -68,7 +68,7 @@ codegen/
 octave-workspace
 
 # Folders
-private/
+octave-networks-toolbox/
 tables/
 
 ### SublimeText ###
