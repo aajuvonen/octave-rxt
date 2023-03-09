@@ -12,6 +12,7 @@ function path_loss_overhor = model_overhor(param_dist,param_h1,param_h2)
   % Calculate radio horizon distance
   d_hor = calc_d_hor(param_h1,param_h2);
 
+  % Eq. (7.25)
   factor1 = -20 * log10((param_h1 * param_h2) .\ (param_dist * 1000).^2);
   factor2 = -10 * log10((1+(param_dist / (6 * d_hor)).^7) / 1+(param_dist / d_hor).^3);
   factor3 = -param_dist ./ (13 + 77*(d_hor ./ param_dist));

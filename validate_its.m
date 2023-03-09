@@ -26,17 +26,22 @@ function validate_its
   globals
   constants
 
+  % Mute warnings
+  warnings_orig = warnings;
+  warnings = false;
+
+  % Input parameters
   h1 = [1000,1000,1000,10000,20000];
   h2 = [15,60,1000,1000,10000];
   dist = 0:1000;
   prob = [1,50,95];
   freq = [100,300,600];
-
-  result = zeros(length(h1),1000,length(prob),length(freq));
-
   T_0 = 289;
   QNH = 969;
   calc_k_factor;
+
+  % Initialise result vector
+  result = zeros(length(h1),1000,length(prob),length(freq));
 
   for i = 1:length(h1)
     for j = dist+1
@@ -48,6 +53,9 @@ function validate_its
       end
     end
   end
+
+  % Unmute warnings
+  warnings = warnings_orig;
 
   csvwrite ("tables/its_out100_1_1.csv",result(1,:,1,1));
   csvwrite ("tables/its_out100_1_2.csv",result(2,:,1,1));

@@ -2,7 +2,7 @@
 
 % Inputs:            distance  [m]
 %               line-of-sight  bool   (LoS / NLos)
-%                 environment  1/2/3  (Office / corridor / industrial)
+%                 environment  int.   (1 = office, 2 = corridor, 3 = industrial)
 
 % Output:           path loss  [dB]
 
@@ -27,6 +27,6 @@ function path_loss_p1238 = model_p1238(param_dist,param_los = 1,param_env = 1)
   gamma = loss_coeff(coeff_row,3);
   sigma = loss_coeff(coeff_row,4);
 
-  % Eq. (1)
-  path_loss_p1238 = 10 * alpha * log10(param_dist) + beeta + 10 * gamma * log10(f) + norm_inv(q) * sigma;
+  % Eq. (1), with added factor sigma
+  path_loss_p1238 = 10 * alpha .* log10(param_dist) + beeta + 10 * gamma * log10(f) + norm_inv(q) * sigma;
 endfunction
