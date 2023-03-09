@@ -30,15 +30,15 @@ The following sequence sequence avoids having RxT's routines in the same folder 
 4. Run for example `linkDensity(graph_node_jsr)` to confirm that routines are accessible correctly. To find strongly connected components, run `tarjan(adj2adjL(graph_node_jsr))`.
 
 
-### What is the ITS path loss model?
+### What is the itaero path loss model?
 
-Calculate path loss using ITS by running `calc_node_path_loss_its.m`
+Calculate path loss using itaero by running `calc_node_path_loss_itaero.m`
 
 It's a poor man's curve-fitted approximation of ITU-R P.528-5. The model is fairly usable in the frequency range of around 100-600 MHz and in altitudes some hundreds of meters above the ground.
 
 The model has two primary perks over FSL:
 1. Estimation of time availability in line-of-sight propagation
-2. Estimation of Trans-horizon propagation path loss
+2. Estimation of trans-horizon propagation path loss
 
 
 ### What is FAFO compliance?

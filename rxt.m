@@ -24,7 +24,7 @@ if(hints)
   disp("   model_hata_mod.m     Modified Hata for urban environments")
   disp("   model_overhor.m      Empirical beyond-the-horizon propagation")
   disp("   model_p1238.m        ITU-R P.1238-11 indoors propagation for small distances (in meters)")
-  disp("   model_its.m          Aeronautical path loss, curve fitted to ITU-R P.528-5 line-of-sight mode")
+  disp("   model_itaero.m       Aeronautical path loss, curve fitted to ITU-R P.528-5 line-of-sight mode")
   disp("")
 
   disp("RxT can generate graphs for octave-networks-toolbox.")

@@ -1,6 +1,9 @@
 % Calculate smooth Earth radio horizon
-% Inputs: Terminal heights [m]
-% Output: Combined radio horizon distance [km]
+%
+% Inputs:   terminal 1 height  [m]
+%           terminal 2 height  [m]
+%
+% Output:            distance  [km]
 
 function calc_d_hor = calc_d_hor(h1,h2)
   globals

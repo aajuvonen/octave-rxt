@@ -1,13 +1,13 @@
-% Calculate path losses using ITS model (Itse Tehty Säästömalli), curve fitted to ITU-R P.528-5 line-of-sight propagatio mode
-
+% Calculate path losses using the itaero model (Itse Tehty Aeromalli), curve fitted to ITU-R P.528-5 line-of-sight propagatio mode
+%
 % Inputs:            distance  [km]
 %           terminal 1 height  [m]
 %           terminal 2 height  [m]
 %           time availability  [%]
-
+%
 % Output:           path loss  [dB]
 
-function path_loss_its = model_its(param_dist,param_h1,param_h2,param_timeq = 50)
+function path_loss_itaero = model_itaero(param_dist,param_h1,param_h2,param_timeq = 50)
   globals
 
   if(warnings)
@@ -25,7 +25,7 @@ function path_loss_its = model_its(param_dist,param_h1,param_h2,param_timeq = 50
   alpha = alpha_curve(param_timeq);                                       % num.   Path loss exponent
 
   % Multiply reference loss by node distances
-  path_loss_its = -(L_0 + 10*log10(param_dist.^alpha));
+  path_loss_itaero = -(L_0 + 10*log10(param_dist.^alpha));
 
   % Calculate radio horizon distance
   d_hor = calc_d_hor(param_h1,param_h2);
@@ -45,5 +45,5 @@ function path_loss_its = model_its(param_dist,param_h1,param_h2,param_timeq = 50
   loss_sca = loss_sca.*(0.368421 / (1.85779 + alpha_curve(param_timeq))); % Scattering loss
   
   % Sum diffraction and scattering modes to path loss
-  path_loss_its = path_loss_its - loss_dif - loss_sca;
+  path_loss_itaero = path_loss_itaero - loss_dif - loss_sca;
 endfunction
