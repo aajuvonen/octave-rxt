@@ -28,5 +28,5 @@ function path_loss_p1238 = model_p1238(param_dist,param_los = 1,param_env = 1)
   sigma = loss_coeff(coeff_row,4);
 
   % Eq. (1)
-  path_loss_p1238 = 10 * alpha * log10(param_dist) + beeta + 10 * gamma * log10(f);
+  path_loss_p1238 = 10 * alpha * log10(param_dist) + beeta + 10 * gamma * log10(f) + norm_inv(q) * sigma;
 endfunction
