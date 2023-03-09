@@ -1,6 +1,6 @@
 % Plot beyond-the-horizon loss model curve
 function plot_model_overhor(param_h1,param_h2)
-  printf("Plotting beyond-the-horizon path loss curve... ")
+  disp("Plotting beyond-the-horizon path loss curve... ")
   ticstart
   globals
 

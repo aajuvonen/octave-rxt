@@ -1,6 +1,6 @@
 % Plot node links under jamming
 function plot_node_jsr
-  printf("Plotting node links under jamming... ")
+  disp("Plotting node links under jamming... ")
   ticstart
   globals
 

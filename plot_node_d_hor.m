@@ -1,6 +1,6 @@
 % Plot node singular radio horizons
 function plot_node_d_hor
-  printf("Plotting node singular horizons... ")
+  disp("Plotting node singular horizons... ")
   ticstart
   globals
 

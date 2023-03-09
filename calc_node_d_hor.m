@@ -1,6 +1,6 @@
 % Calculate node radio horizons 
 function calc_node_d_hor
-  printf("Calculating node radio horizons... ")
+  disp("Calculating node radio horizons... ")
   ticstart
   globals
   

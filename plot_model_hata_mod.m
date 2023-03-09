@@ -1,6 +1,6 @@
 % Plot modified Hata loss model curve
 function plot_model_hata_mod(param_h1,param_h2,param_u = 0,param_u_r = 0,param_b = 15.849)
-  printf("Plotting modified Hata loss path loss curve... ")
+  disp("Plotting modified Hata loss path loss curve... ")
   ticstart
   globals
 

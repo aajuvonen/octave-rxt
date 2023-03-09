@@ -1,6 +1,6 @@
 % Graph node links
 function draw_graph_node_link
-  printf("Graphing node links... ")
+  disp("Graphing node links... ")
   ticstart
   globals
 

@@ -1,6 +1,6 @@
 % Plot node jamfree links
 function plot_node_links
-  printf("Plotting node jamfree links... ")
+  disp("Plotting node jamfree links... ")
   ticstart
   globals
 

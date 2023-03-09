@@ -1,6 +1,6 @@
 % Calculate node received powers
 function calc_node_rx_pwr
-  printf("Calculating node received powers... ")
+  disp("Calculating node received powers... ")
   ticstart
   globals
 

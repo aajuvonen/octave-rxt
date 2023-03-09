@@ -1,3 +1,5 @@
+settings
+
 % Natual constants
 global c;                         % [m/s]  Speed of light
 global k_B;                       % [J/K]  Bolzmann's constant
@@ -47,5 +49,3 @@ global labels;                    % Graph labels
 % Generated graphs
 global graph_node_link;           % Graph for node links
 global graph_node_jsr;            % Graph for jamming-to-signal ratio
-
-settings

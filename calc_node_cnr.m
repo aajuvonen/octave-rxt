@@ -1,6 +1,6 @@
 % Calculate node carrier-to-noise ratios
 function calc_node_cnr
-  printf("Calculating node carrier-to-noise ratios... ")
+  disp("Calculating node carrier-to-noise ratios... ")
   ticstart
   globals
   

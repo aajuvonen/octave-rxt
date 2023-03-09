@@ -1,7 +1,7 @@
 % Calculate node jamming-to-signal ratios
 % Input: jammer node index (optional)
 function calc_node_jsr(jammer = 1)
-  printf("Calculating node jamming-to-signal ratios... ")
+  disp("Calculating node jamming-to-signal ratios... ")
   ticstart
   globals
 

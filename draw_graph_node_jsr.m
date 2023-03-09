@@ -1,6 +1,6 @@
 % Graph jamming-to-signal ratio
 function draw_graph_node_jsr
-  printf("Graphing jamming-to-signal ratio... ")
+  disp("Graphing jamming-to-signal ratio... ")
   ticstart
   globals
 

@@ -2,5 +2,7 @@
 
 function ticstop
   settings
-  if(counter) disp(toc) endif
+  if(counter)
+    disp(toc)
+  endif
 endfunction

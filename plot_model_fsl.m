@@ -1,6 +1,6 @@
 % Plot free space loss model curve
 function plot_model_fsl(param_alpha = 2)
-  printf("Plotting free space loss path loss curve... ")
+  disp("Plotting free space loss path loss curve... ")
   ticstart
   globals
 

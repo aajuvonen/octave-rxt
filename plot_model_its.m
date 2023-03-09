@@ -1,6 +1,6 @@
 % Plot ITS model curve
 function plot_model_its(param_h1,param_h2,param_timeq = 50)
-  printf("Plotting ITS-model path loss curve... ")
+  disp("Plotting ITS-model path loss curve... ")
   tictart
   globals
 

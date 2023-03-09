@@ -1,6 +1,6 @@
 % Calculate node path losses using ITS model (Itse Tehty Säästömalli)
 function calc_node_path_loss_its
-  printf("Calculating node path losses using ITS... ")
+  disp("Calculating node path losses using ITS... ")
   ticstart
   globals
 

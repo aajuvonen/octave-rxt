@@ -28,7 +28,6 @@ function path_loss_hata_mod = model_hata_mod(param_dist,param_h1,param_h2,param_
     if(f < 100) disp("Warning: frequency lower than model minimum 100 MHz") endif
     if(f > 3000) disp("Warning: frequency exceeds model maximum 3000 MHz") endif
   endif
-
   
   a_m = (0.7 - 1.1 * log10(f)) .* param_h2 + 1.56 * log10(f) - 0.8; % Eq. (7.12)
   a_2 = 1.1 - 8.29 * log10(1.54 .* param_h2).^2;                    % Eq. (7.13)

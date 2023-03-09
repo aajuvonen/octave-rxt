@@ -1,6 +1,11 @@
-% Calculate path losses using trans horizon model, following Siwiak & Bahreini (2007) Eq. (7.25)
-% Inputs: distance [km], terminal 1 height [m], terminal 2 height [m]
-% Output: path loss [dB]
+% Calculate path loss using trans horizon model, following Siwiak & Bahreini (2007) Eq. (7.25)
+
+% Inputs:            distance  [km]
+%           terminal 1 height  [m]
+%           terminal 2 height  [m]
+
+% Output:           path loss  [dB]
+
 function path_loss_overhor = model_overhor(param_dist,param_h1,param_h2)
   globals
 
