@@ -22,8 +22,6 @@ Lorem Ipsum
 
 ## Using with octave-networks-toolbox
 
-The following sequence sequence avoids having RxT's routines in the same folder with `octave-networks-toolbox`'s, and allows using RxT's graphs in `octave-networks-toolbox`'s routines:
-
 1. Clone `octave-networks-toolbox` (e.g., `git clone https://github.com/aeolianine/octave-networks-toolbox`).
 2. In Octave run `rxt.m` and, for example, `source example/aeronautical_interference.m`
 3. Navigate to `octave-networks-toolbox/` run `testAllFunctions` to see which `octave-networks-toolbox` routines work with your version of Octave.
