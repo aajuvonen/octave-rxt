@@ -40,6 +40,7 @@ global node_rx_pwr;               % [dBm]  Node received power
 global node_cnr;                  % [dB]   Node carrier-to-noise ratio
 global node_jsr;                  % [dB]   Node jamming-to-signal ratio
 global node_count;                % num.   Node count
+global node_link_capacity;        % [b/s]  Node link channel capacity
 
 % Plotting variables
 global nodes;                     % Graph node list
