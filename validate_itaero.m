@@ -1,10 +1,10 @@
 % This function generates CSV tables with the itaero model. The routine is 
 % useful for making comparisons with P.528 data.
 
-% ITS is best suited for ballpark calculations for LOS links. There is a 
+% Itaero is best suited for ballpark calculations for LOS links. There is a 
 % tendency to underestimate diffraction. The worst performance is associated 
-% with large delta heights. ITS is generally more optimistic than P.528. 
-% On average ITS deviates about 2 dB from P.528 per 100 km.
+% with large delta altitudes. Itaero is generally more optimistic than P.528. 
+% On average itaero deviates about 2 dB from P.528 per 100 km.
 
 % Performance           0...100 101...200 201...300 301...400 401...500 km
 % ------------------------------------------------------------------------
