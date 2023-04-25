@@ -1,6 +1,6 @@
 % Calculate node received powers using free space loss with parametric path loss exponent 
 
-function calc_node_path_loss_fsl(param_alpha = 2))
+function calc_node_path_loss_fsl(param_alpha = 2)
   disp("Calculating node path losses using free space loss... ")
   ticstart
   globals
