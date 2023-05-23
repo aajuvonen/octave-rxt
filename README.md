@@ -24,7 +24,7 @@ Lorem Ipsum
 
 1. Clone `octave-networks-toolbox` (e.g., `git clone https://github.com/aeolianine/octave-networks-toolbox`).
 2. In Octave run `rxt.m` and, for example, `source example/aeronautical_interference.m`
-3. Navigate to `octave-networks-toolbox/` run `testAllFunctions` to see which `octave-networks-toolbox` routines work with your version of Octave.
+3. Run `testAllFunctions` to see which `octave-networks-toolbox` routines work with your version of Octave.
 4. Run for example `linkDensity(graph_node_jsr)` to confirm that routines are accessible correctly. To find strongly connected components, run `tarjan(adj2adjL(graph_node_jsr))`.
 
 
@@ -46,7 +46,7 @@ Fool around, find out.
 
 ## Dependencies
 
-The development and testing has been conducted on GUN/Octave. Most of the functions are MatLab-compatible, but the plotting routines are (probably) not.
+The development and testing has been conducted on GUN/Octave. Most functions are MatLab-compatible, but the plotting routines are (probably) not.
 
 Required external resources:
 * `plot_node_d_hor.m` depends on `matgeom`. To install `matgeom` run `pkg install -forge matgeom`.
