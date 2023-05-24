@@ -4,5 +4,5 @@
 % Output:   numeric
 
 function retval = db2num(val)
-  retval = 10^(val/10);
+  retval = 10.^(val./10);
 endfunction
