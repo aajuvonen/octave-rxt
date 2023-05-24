@@ -1,6 +1,6 @@
 % Calculate free space loss with parametric path loss exponent 
 %
-% Inputs:            distance  [m]
+% Inputs:            distance  [km]
 %          path loss exponent  num.
 %
 % Output:           path loss  [dB]
