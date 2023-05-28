@@ -1,5 +1,7 @@
 % Draw graphs with octave-matgeom and octave-networks-toolbox
 
+% TODO: get graph axes from node coordinates
+
 function plot_worker
   globals
     close all;                                            % Close all plots
