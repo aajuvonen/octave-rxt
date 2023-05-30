@@ -28,12 +28,11 @@ if(hints)
   disp("")
 
   disp("RxT can generate graphs for octave-networks-toolbox.")
-  if(!nettools)
+  if(!graphtools)
   disp("   'octave-networks-toolbox/' folder not found.")
   disp("   Clone https://github.com/aeolianine/octave-networks-toolbox") endif
-  if(nettools)
+  if(graphtools)
   disp("   Generate graphs with RxT (e.g. 'graph_node_jsr')")
-  disp("   Navigate to 'octave-networks-toolbox/' to use its routines")
   disp("   Hints for octave-networks-toolbox are marked with '*'") endif
   disp("")
 
