@@ -43,6 +43,13 @@ global node_jsr;                  % [dB]   Node jamming-to-signal ratio
 global node_count;                % num.   Node count
 global node_link_capacity;        % [b/s]  Node link channel capacity
 
+% Node cliques
+% TODO: cleck out find_cliques.m and tell me a sane way to accomplish this.
+for i = 1:50
+  eval(['global node_clique_' num2str(i) ';'])
+endfor
+global node_clique_count;         % num.  Node clique count
+
 % Plotting variables
 global nodes;                     % Graph node list
 global edges;                     % Graph edge list
