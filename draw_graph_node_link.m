@@ -9,5 +9,5 @@ function draw_graph_node_link
     graph_node_link = graph_node_link > S_min;
   ticstop
   if(hints) disp("   Node link adjacency matrix generated to 'graph_node_links'") endif
-  if(hints) disp("   Call 'plot_node_links' to plot graph") endif
+  if(hints) disp("   Call 'plot_graph(graph_node_links)' to plot graph") endif
 endfunction
