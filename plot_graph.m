@@ -1,7 +1,7 @@
 % Function for plotting graphs
 
 function plot_graph(param_graph)
-  disp("Plotting graph... " param_graph)
+  disp("Plotting graph...")
   ticstart
   globals
     nodes = node_xyz(:,1:2);                           % Get node xy list

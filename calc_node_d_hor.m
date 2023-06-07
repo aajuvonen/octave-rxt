@@ -7,7 +7,7 @@ function calc_node_d_hor(param_nodes)
   ticstart
   globals
     if(!exist("param_nodes"))
-      param_nodes = 1:node_count;
+      param_nodes = 1:node_count;                                         % Default to include all nodes
       node_d_hor_single = zeros(node_count,node_count);                   % Initialise singular horizon vector
       node_d_hor = zeros(node_count,node_count,2);                        % Initialise combined horizon vector
     else
