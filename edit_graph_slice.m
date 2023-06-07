@@ -4,7 +4,7 @@
 %           param_nodes  num.  An array with node indices
 % Output:  graph_sliced  arr.  An adjacency matrix of the sliced graph
 
-function graph_sliced = slice_graphs(param_graph,param_nodes)
+function graph_sliced = edit_graph_slice(param_graph,param_nodes)
   globals
     graph_sliced = zeros(size(param_graph));                           % Initialise the sliced graph
     for i = 1:length(param_nodes)
