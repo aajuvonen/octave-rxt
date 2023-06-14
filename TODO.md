@@ -1,7 +1,5 @@
 # Features
 - support for time series and temporal graphs
-- calculate degree matrix
-- calculate Laplace matrix
 - input validation to all routines
 - error functions to all routines
 - conventional headers to all routines
