@@ -1,4 +1,4 @@
-% Calculate node path losses using itaero model
+## Calculate node path losses using itaero model
 
 function calc_node_path_loss_itaero
   disp("Calculating node path losses using itaero... ")

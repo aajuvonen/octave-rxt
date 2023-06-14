@@ -1,4 +1,4 @@
-% Graph jamming-to-signal ratio
+## Graph jamming-to-signal ratio
 
 function draw_graph_node_jsr
   disp("Graphing jamming-to-signal ratio... ")

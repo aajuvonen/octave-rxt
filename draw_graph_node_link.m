@@ -1,4 +1,4 @@
-% Graph node links
+## Graph node links
 
 function draw_graph_node_link
   disp("Graphing node links... ")

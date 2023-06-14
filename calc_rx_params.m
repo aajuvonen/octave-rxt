@@ -1,4 +1,4 @@
-% Calculate receiver parameters
+## Calculate receiver parameters
 
 function calc_rx_params
   globals

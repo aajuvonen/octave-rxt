@@ -1,4 +1,4 @@
-% Calculate node received powers using trans horizon model
+## Calculate node received powers using trans horizon model
 
 function calc_node_path_loss_overhor
   disp("Calculating node path losses using trans horizon model... ")

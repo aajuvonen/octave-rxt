@@ -1,4 +1,4 @@
-% Plot node jamming rings
+## Plot node jamming rings
 
 function plot_node_jam_ring(param_jammer = 1)
   disp("Plotting node jamming rings... ")

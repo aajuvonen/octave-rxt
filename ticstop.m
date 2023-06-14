@@ -1,4 +1,4 @@
-% Routine to stop timer
+## Routine to stop timer
 
 function ticstop
   settings

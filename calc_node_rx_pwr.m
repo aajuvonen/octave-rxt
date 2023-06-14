@@ -1,4 +1,4 @@
-% Calculate node received powers
+## Calculate node received powers
 
 function calc_node_rx_pwr
   disp("Calculating node received powers... ")

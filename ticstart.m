@@ -1,4 +1,4 @@
-% Routine to start timer
+## Routine to start timer
 
 function ticstart
   settings 

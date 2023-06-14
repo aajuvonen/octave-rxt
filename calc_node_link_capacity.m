@@ -1,4 +1,4 @@
-% Calculate node link channel capacity
+## Calculate node link channel capacity
 
 function calc_node_link_capacity
   disp("Calculating node link channel capacities... ")

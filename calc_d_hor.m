@@ -1,9 +1,9 @@
-% Calculate smooth Earth radio horizon
-%
-% Inputs:   terminal 1 height  [m]
-%           terminal 2 height  [m]
-%
-% Output:            distance  [km]
+## Calculate smooth Earth radio horizon
+##
+## Inputs:   terminal 1 height  [m]
+##           terminal 2 height  [m]
+##
+## Output:            distance  [km]
 
 function retval = calc_d_hor(h1,h2)
   globals

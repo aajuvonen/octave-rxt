@@ -1,5 +1,5 @@
-% Calculate node jamming-to-signal ratios
-% Input: jammer node index
+## Calculate node jamming-to-signal ratios
+## Input: jammer node index
 
 function calc_node_jsr(jammer = 1)
   disp("Calculating node jamming-to-signal ratios... ")

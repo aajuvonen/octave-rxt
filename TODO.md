@@ -20,7 +20,6 @@
 
 # Refactoring
 - prefix all globals with `rxt_`
-- change `%` comments to `#` and `##`
 - combine node data to structs
 
 # Routines

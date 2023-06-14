@@ -3,8 +3,8 @@ close all
 clc
 ignore_function_time_stamp ("all")
 
-globals                           % Declare global variables
-constants                         % Set constants
+globals                           # Declare global variables
+constants                         # Set constants
 
 disp("RxT - Radio network modelling and graph generation")
 disp("   Artturi Juvonen 2023")
