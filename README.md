@@ -50,7 +50,7 @@ The development and testing has been conducted on GUN/Octave. Most functions are
 
 Required external resources:
 * `plot_node_d_hor.m` depends on `matgeom`. To install `matgeom` run `pkg install -forge matgeom`.
-* `plot_worker.m` depends on matgeom and `octave-networks-toolbox`.
+* `plot_worker.m` depends on `matgeom` and `octave-networks-toolbox`.
 
 
 
