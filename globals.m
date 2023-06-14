@@ -4,7 +4,6 @@ settings
 global c;                         # [m/s]  Speed of light
 global k_B;                       # [J/K]  Bolzmann's constant
 global norm_inv;                  # Inverse of the standard normal cumulative distribution
-global alpha_curve;               # Precalculated alphas
 
 ## Ambient parameters
 global T_0;                       # [K]    Ambient temperature
