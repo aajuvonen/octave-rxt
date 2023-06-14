@@ -21,6 +21,7 @@
 # Refactoring
 - prefix all globals with `rxt_`
 - combine node data to structs
+- change all variables to input and output either rows or columns, not mixed up like currently
 
 # Routines
 

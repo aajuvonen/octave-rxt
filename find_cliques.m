@@ -4,6 +4,10 @@
 ## out how to output an arbitrary amount of arrays in a function in a sane way.
 ## Hence, the first fifty cliques are set in predetermined global variables, like
 ## it or not. I double dare you: tell me how to fix this.
+##
+## Input:    param_graph  arr.  An adjacency matrix of the graph to be sliced
+##
+## Output: node_clique_n  num.  Node index list
 
 function find_cliques(param_graph)
   disp("For now the function outputs all cliques as arrays of node indices.")
