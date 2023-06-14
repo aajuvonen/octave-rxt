@@ -9,6 +9,7 @@
 
 function path_loss_itaero = model_itaero(param_dist,param_h1,param_h2,param_timeq = 50)
   globals
+  constants
 
   if(warnings)
     if(f < 100) disp("Warning: the model performs best with frequencies above 100 MHz") endif
