@@ -1,6 +1,6 @@
 ## Find degrees using octave-networks-toolbox
 ##
-## Input:   param_graph  arr.  An adjacency matrix of the graph to be sliced
+## Input:   param_graph  arr.  Adjacency matrix
 ##
 ## Output: node_degrees  arr.  Node degrees [degree,indegree,outdegree]
 
