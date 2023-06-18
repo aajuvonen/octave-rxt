@@ -1,22 +1,22 @@
 ## Calculate path loss using trans horizon model, following Siwiak & Bahreini (2007) Eq. (7.25)
 ##
-## Inputs:            distance  [km]
-##           terminal 1 height  [m]
-##           terminal 2 height  [m]
+## Inputs:  d__km          distance           [km]
+##          h_1__meter     terminal 1 height  [m]
+##          h_1__meter     terminal 2 height  [m]
 ##
-## Output:           path loss  [dB]
+## Output:  L_overhor__dB  path loss          [dB]
 
-function path_loss_overhor = model_overhor(param_dist,param_h1,param_h2)
+function L_overhor__dB = model_overhor(d__km, h_1__meter, h_2__meter)
   globals
 
   ## Calculate radio horizon distance
-  d_hor = calc_d_hor(param_h1,param_h2);
+  d_hor = calc_d_hor(h_1__meter, h_2__meter);
 
   ## Eq. (7.25)
-  factor1 = -20 * log10((param_h1 * param_h2) .\ (param_dist * 1000).^2);
-  factor2 = -10 * log10((1+(param_dist / (6 * d_hor)).^7) / 1+(param_dist / d_hor).^3);
-  factor3 = -param_dist ./ (13 + 77*(d_hor ./ param_dist));
+  factor1 = -20 * log10((h_1__meter * h_2__meter) .\ (d__km * 1000).^2);
+  factor2 = -10 * log10((1 + (d__km / (6 * d_hor)).^ 7) / 1 +(d__km / d_hor).^ 3);
+  factor3 = -d__km ./ (13 + 77 * (d_hor ./ d__km));
   factor4 = (22 + (f / 2000)) * log10(100 / f);
 
-  path_loss_overhor = factor1 + factor2 + factor3 + factor4;
+  L_overhor__dB = factor1 + factor2 + factor3 + factor4;
 endfunction

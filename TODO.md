@@ -20,6 +20,7 @@
 - prefix all globals with `rxt_`
 - combine node data to structs
 - change all variables to input and output either rows or columns, not mixed up like currently
+- changes variables to pseudo latex format, e.g. `h_1__meter`
 
 # Routines
 
@@ -31,3 +32,9 @@
 
 ## plot_worker.m
 - get graph axes from node coordinates
+
+## calc_node_dist_alts.m
+- add param_nodes
+
+## calc_node_geodist_alts.m
+- add param_nodes

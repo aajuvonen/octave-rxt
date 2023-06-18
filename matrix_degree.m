@@ -1,11 +1,11 @@
 ## Create a degree matrix
 ##
-## Input:   param_graph  arr.  Adjacency matrix
-##            param_dir  num.  (1,2,3) Degree to use: 1 = total, 2 = indegree, 3 = outdegree
+## Input:  param_graph  arr.  Adjacency matrix
+##         param_dir    num.  (1,2,3) Degree to use: 1 = total, 2 = indegree, 3 = outdegree
 ##
-## Output:        mat_D  mat.  Degree matrix
+## Output: mat_D        mat.  Degree matrix
 
-function mat_D = matrix_degree(param_graph,param_dir = 1)
+function mat_D = matrix_degree(param_graph, param_dir = 1)
   disp("Creating degree matrix...")
   ticstart
   globals

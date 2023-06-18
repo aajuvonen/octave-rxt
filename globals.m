@@ -49,10 +49,10 @@ if(graphtools)
   for i = 1:50
     eval(['global node_clique_' num2str(i) ';'])
   endfor
-  global node_clique_count;         # num.   Node clique count
+  global node_clique_count;       # num.   Node clique count
 
   ## Node degress
-  global node_degrees;              # arr.   Node degrees [degree,indegree,outdegree]
+  global node_degrees;            # arr.   Node degrees [degree,indegree,outdegree]
 endif
 
 ## Plotting variables

@@ -1,17 +1,17 @@
 ## Calculate free space loss with parametric path loss exponent 
 ##
-## Inputs:            distance  [km]
-##          path loss exponent  num.
+## Inputs:  dist__km     distance            [km]
+##          param_alpha  path loss exponent  num.  (2)
 ##
-## Output:           path loss  [dB]
+## Output:  L_fsl__dB    path loss           [dB]
 
-function path_loss_fsl = model_fsl(param_dist,param_alpha = 2)
+function L_fsl__dB = model_fsl(dit__km, param_alpha = 2)
   globals
-    lambda = c/(f*10^6);                         # [m]    Transceiver wave length
-    r_0 = 1000;                                  # [m]    Path loss reference distance
-    L_ref = ((4 * pi * r_0)/lambda)^param_alpha; # num.   Path loss in reference distance
-    L_0 = num2db(L_ref);                         # [dB]   Path loss in reference distance in decibels
+    lambda = c / (f * 10^6);                        # [m]    Transceiver wave length
+    r_0 = 1000;                                     # [m]    Path loss reference distance
+    L_ref = ((4 * pi * r_0) / lambda)^param_alpha;  # num.   Path loss in reference distance
+    L_0 = num2db(L_ref);                            # [dB]   Path loss in reference distance in decibels
 
     ## Multiply reference loss by node distances
-    path_loss_fsl = -(L_0 + 10*log10(param_dist.^param_alpha));
+    L_fsl__dB = -(L_0 + 10 * log10(dist__km.^param_alpha));
 endfunction

@@ -1,8 +1,8 @@
 ## Convert desibels to a linear number
 ##
-## Input:  decibel [dB]
-## Output: numeric
+## Input:  val__dB      decibel  [dB]
+## Output: retval__num  numeric  num.
 
-function retval = db2num(val)
-  retval = 10.^(val./10);
+function retval__num = db2num(val__dB)
+  retval__num = 10.^(val__dB ./ 10);
 endfunction

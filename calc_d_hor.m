@@ -1,11 +1,11 @@
 ## Calculate smooth Earth radio horizon
 ##
-## Inputs:   terminal 1 height  [m]
-##           terminal 2 height  [m]
+## Inputs:  h_1__meter  terminal 1 height  [m]
+##          h_2__meter  terminal 2 height  [m]
 ##
-## Output:            distance  [km]
+## Output:  d__km       distance           [km]
 
-function retval = calc_d_hor(h1,h2)
+function d__km = calc_d_hor(h_1__meter, h_2__meter)
   globals
-  retval = 3.571*sqrt(K)*(sqrt(h1)+sqrt(h2));
+  d__km = 3.571 * sqrt(K) * (sqrt(h_1__meter) + sqrt(h_2__meter));
 endfunction

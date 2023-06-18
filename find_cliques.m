@@ -5,7 +5,7 @@
 ## Hence, the first fifty cliques are set in predetermined global variables, like
 ## it or not. I double dare you: tell me how to fix this.
 ##
-## Input:    param_graph  arr.  An adjacency matrix of the graph to be sliced
+## Input:  param_graph    arr.  An adjacency matrix of the graph to be sliced
 ##
 ## Output: node_clique_n  num.  Node index list
 

@@ -1,8 +1,8 @@
 ## Convert decibelmilliwatts [dBm] to Watts [W]
 ##
-## Input:  decibelmilliwatt  [dBm]
-## Output:             Watt  [W]
+## Input:  val__dBm      decibelmilliwatt [dBm]
+## Output: retval__watt  Watt  [W]
 
-function retval = dbm2watt(val)
-  retval = 10.^(val/10)/1000;
+function retval__watt = dbm2watt(val__dBm)
+  retval_watt = 10.^(val / 10) / 1000;
 endfunction

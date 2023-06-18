@@ -1,12 +1,12 @@
 ## Convert geological distance and altitudes to approximate three dimensional ray distance
 ##
-## Inputs:  geo distance (geod)  [km]
-##            terminal 1 height  [m]
-##            terminal 2 height  [m]
+## Inputs:  geod__km    geo distance       [km]
+##          h_1__meter  terminal 1 height  [m]
+##          h_2__meter  terminal 2 height  [m]
 ##
-## Output:  ray distance (rayd)  [km]
+## Output:  rayd__km    ray distance       [km]
 
-function rayd = geod2rayd(geod,h1,h2)
+function rayd__km = geod2rayd(geod__km, h_1__meter, h_2__meter)
   globals
-  rayd = sqrt(geod^2+((max([h1,h2])-min([h1,h2]))/1000)^2);
+  rayd__km = sqrt(geod__km^2 + ((max([h_1__meter, h_2__meter]) - min([h_1__meter, h_2__meter])) / 1000)^2);
 endfunction
