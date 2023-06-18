@@ -7,7 +7,6 @@
 - JCR calculation so that instead of Johnson-Nyquist noise, J is used as the noise factor
 - JCR calculation using channel capacity only
 - Rice model for propagation loss
-- urban noise P.372
 - Weissberger's model
 - support for node angles
 - support for `.ant` files (at minimum azimuth)
