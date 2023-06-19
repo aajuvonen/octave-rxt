@@ -7,6 +7,6 @@ function calc_node_jsr(param_jammer = 1)
   ticstart
   globals
     node_jsr = node_rx_pwr - node_rx_pwr(param_jammer,:);
-    node_jsr(param_jammer,:) = -1 * S_min + node_rx_pwr(param_jammer,:);
+    node_jsr(param_jammer,:) = -1 * S_min__dBm + node_rx_pwr(param_jammer,:);
   ticstop
 endfunction

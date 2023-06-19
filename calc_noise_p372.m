@@ -18,7 +18,7 @@ function N_p372__dB = calc_noise_p372(param_env = 1)
 
   for i = 1:size(param_env,1)
     for j = 1:size(param_env,2)
-      N_p372__dB(i,j) = coeff(N_p372__dB(i,j), 1) - coeff(N_p372__dB(i,j), 2) .* log10(f);
+      N_p372__dB(i,j) = coeff(N_p372__dB(i,j), 1) - coeff(N_p372__dB(i,j), 2) .* log10(f__MHz);
     endfor
   endfor
 

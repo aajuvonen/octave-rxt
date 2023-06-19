@@ -12,19 +12,19 @@ global WVP;                       # [hPa]  Water vapour pressure
 global RRI;                       # [N]    Radio refractivity index
 global K;                         # num.   Earth effective radius factor
 global q;                         # [%]    Channel time availability
-global L_sf_std;                  # [dB]   Path loss variation standard deviation
-global L_sf;                      # [dB]   Path loss variation for the corresponding time availability
+global L_sf_std__dB;              # [dB]   Path loss variation standard deviation
+global L_sf__dB;                  # [dB]   Path loss variation for the corresponding time availability
 
 ## Receiver parameters
-global f;                         # [MHz]  Transceiver frequency
-global B;                         # [Hz]   Transceiver bandwidth
-global N_F;                       # [dB]   Transceiver noise figure
-global SNR_req;                   # [dB]   Transceiver signal-to-noise ratio requirement
-global N_tot;                     # [dBm]  Transceiver noise floor
-global S_min;                     # [dBm]  Transceiver detection threshold
-global L_int;                     # [dB]   Transceiver cumulative internal losses
-global G_pro;                     # [dB]   Transceiver processing gain
-global G_ant;                     # [dB]   Transceiver antenna gain
+global f__MHz;                    # [MHz]  Transceiver frequency
+global B__Hz;                     # [Hz]   Transceiver bandwidth
+global N_F__dB;                   # [dB]   Transceiver noise figure
+global SNR_req__dB;               # [dB]   Transceiver signal-to-noise ratio requirement
+global N_tot__dBm;                # [dBm]  Transceiver noise floor
+global S_min__dBm;                # [dBm]  Transceiver detection threshold
+global L_int__dB;                 # [dB]   Transceiver cumulative internal losses
+global G_pro__dB;                 # [dB]   Transceiver processing gain
+global G_ant__dB;                 # [dB]   Transceiver antenna gain
 
 ## Simulation parameters
 global node_xyz;                  # [km]   Node relative x, y, and z coordinates

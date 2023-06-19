@@ -4,26 +4,26 @@ disp("   artturi@juvonen.eu")
 disp("")
 
 ## Ambient parameters
-T_0 = 270;                        # [K]    Ambient temperature
-QNH = 961;                        # [hPa]  Atmospheric pressure
-q = 50;                           # [%]    Channel time availability
-L_sf_std = 6;                     # [dB]   Path loss variation standard deviation
-L_sf = L_sf_std*norm_inv(q);      # [dB]   Path loss variation for the corresponding time availability
-calc_k_factor;                    # Calculate Earth effective radius factor K
+T_0 = 270;                              # [K]    Ambient temperature
+QNH = 961;                              # [hPa]  Atmospheric pressure
+q = 50;                                 # [%]    Channel time availability
+L_sf_std__dB = 6;                       # [dB]   Path loss variation standard deviation
+L_sf__dB = L_sf_std__dB * norm_inv(q);  # [dB]   Path loss variation for the corresponding time availability
+calc_k_factor;                          # Calculate Earth effective radius factor K
 
 ## Receiver parameters
-f = 100;                          # [MHz]  Transceiver frequency
-B = 25000;                        # [Hz]   Transceiver bandwidth
-N_F = 10;                         # [dB]   Transceiver noise figure
-SNR_req = 10;                     # [dB]   Transceiver signal-to-noise ratio requirement
-calc_rx_params;                   # Calculate receiver parameters
+f__MHz = 100;                           # [MHz]  Transceiver frequency
+B__Hz = 25000;                          # [Hz]   Transceiver bandwidth
+N_F__dB = 10;                           # [dB]   Transceiver noise figure
+SNR_req__dB = 10;                       # [dB]   Transceiver signal-to-noise ratio requirement
+calc_rx_params;                         # Calculate receiver parameters
 
 ## UNFINISHED PARAMETERS BEGIN
 ## Missing calculation routines
 ## Missing antenna files and directivity data
-L_int = 0;                        # [dB]   Transceiver cumulative internal losses
-G_pro = 0;                        # [dB]   Transceiver processing gain
-G_ant = 0;                        # [dB]   Transceiver antenna gain
+L_int__dB = 0;                          # [dB]   Transceiver cumulative internal losses
+G_pro__dB = 0;                          # [dB]   Transceiver processing gain
+G_ant__dB = 0;                          # [dB]   Transceiver antenna gain
 ## UNFINISHED PARAMETERS END
 
 ## Node 3D-coordinates
@@ -39,15 +39,14 @@ node_tx_pwr(:,1) = [100;15;15;15;15;15;15;15;15;15;15;15;15;15;15;15;15;15;15;15
 node_tx_pwr(:,2) = [1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1,1,0,1,1,0,0,1,1,0,1,1,1,1,1,1,0,0,1,1,0,1,0,1,1,1,0,1,1,0,1,1,1,1,1];
 # node_tx_pwr(:,2) = ones(1,50);
 
-# calc_node_d_hor;                  # Calcaulta node radio horizons
-# calc_node_path_loss_fsl;          # Calculate path losses using parametric variant of ITU-R P.525-4 spreading loss model
-calc_node_path_loss_itaero;       # Calculate path losses using itaero model
-calc_node_rx_pwr;                 # Calculate node received powers
-calc_node_cnr;                    # Calculate node carrier-to-noise ratios
-calc_node_jsr(1);                 # Calculate node jamming-to-signal ratios
+# calc_node_path_loss_fsl;               # Calculate path losses using parametric variant of ITU-R P.525-4 spreading loss model
+calc_node_path_loss_itaero;             # Calculate path losses using itaero model
+calc_node_rx_pwr;                       # Calculate node received powers
+calc_node_cnr;                          # Calculate node carrier-to-noise ratios
+calc_node_jsr(1);                       # Calculate node jamming-to-signal ratios
 
-draw_graph_node_link;             # Draw graph for node links
-draw_graph_node_jsr;              # Draw graph for jamming-to-signal ratio
+draw_graph_node_link;                   # Draw graph for node links
+draw_graph_node_jsr;                    # Draw graph for jamming-to-signal ratio
 
 if(graphtools) disp(" * Call 'find_cliques(graph_node_jsr)' to find strongly connected components") endif
 if(graphtools) disp(" * Call 'find_degrees(graph_node_jsr)' to find node degrees, indegrees and outdegrees") endif
