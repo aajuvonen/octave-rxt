@@ -4,7 +4,7 @@
 
 function plot_worker
   globals
-    close all;                                          # Close all plots
+    % close all;                                          # Close all plots
     axis([0 500 0 500],"equal");                        # Set plot axes to 0...500
     pkg load matgeom;                                   # Load matgeom
       drawDirectedEdges(nodes,edges);                   # Draw directed edges
