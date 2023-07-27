@@ -2,15 +2,15 @@
 ##
 ## Inputs:  index_jammer  jammer node index   ind.  (1st)   Jammer node's index, default is 1
 ##          P_vic__watt   victim TX power     [W]           Victim nodes' transmit power, default is average power (excluding non-transmitters)
-##          d_vic__km     victim distance     [km]  (avg.)  Distance between jammed nodes, default is average distance (excluding jammer)
 ##          n_vic         victim channels     int.  (1)     Number of jammed channels, default is 1
+##          d_vic__km     victim distance     [km]  (avg.)  Distance between jammed nodes, default is average distance (excluding jammer)
 ##          param_alpha   path loss exponent  num.  (2)     Loss exponent, default is 2 (equivalent to free space spreading loss)
 ##          JCR           required JCR        num.  (1)     Required jamming-to-carrier ratio (default 1:1)
 ##          L_jam         power loss factor   num.  (4)     Power loss factor per victim channels, default is 4 (-6.02 dB)
 ##
 ## Output:            distance  [km]
 
-function calc_node_jam_ring(param_jammer = 1, P_vic__watt, d_vic__km, n_vic = 1, param_alpha = 2, JCR = 1, L_jam = 4)
+function calc_node_jam_ring(param_jammer = 1, P_vic__watt, n_vic = 1, d_vic__km, param_alpha = 2, JCR = 1, L_jam = 4)
   disp("Calculating node jamming rings... ")
   ticstart
   globals

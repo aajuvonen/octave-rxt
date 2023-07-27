@@ -1,4 +1,4 @@
-## Calculate node three dimensional distances and altitudes
+## Calculate node three dimensional distances in kilometers and altitudes in meters
 
 function calc_node_dist_alts
   globals
