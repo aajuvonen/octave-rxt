@@ -18,15 +18,11 @@
 # Refactoring
 - prefix all globals with `rxt_`
 - combine node data to structs
-- change all variables to input and output either rows or columns, not mixed up like currently
 
 # Routines
 
 ## find_cliques.m and globals.m
 - create a sane way to dynamically set only the necessary variables for graph cliques instead of using fixed globals
-
-## plot_worker.m
-- get graph axes from node coordinates
 
 ## calc_node_dist_alts.m
 - add param_nodes

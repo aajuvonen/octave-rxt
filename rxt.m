@@ -39,7 +39,8 @@ if(hints)
   disp("   Hints for octave-networks-toolbox are marked with '*'") endif
   disp("")
 
-  disp("To get started, run exemplary aeronautical interference calculations with:")
+  disp("To get started, run exemplary calculations with:")
   disp("   source example/aeronautical_interference.m")
+  disp("   source example/multilayer_paths.m")
   disp("")
 endif

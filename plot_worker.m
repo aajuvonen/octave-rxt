@@ -2,8 +2,8 @@
 
 function plot_worker
   globals
-    axisval = ceil((max(max(node_xyz))) / 100) * 100;      # Get plot axis value
-    axis([0 axisval 0 axisval], "equal");                  # Set plot axes to 0...500
+    axisval = ceil((max(max(node_xyz))) / 50) * 50;        # Get plot axis value
+    axis([0 axisval 0 axisval], "equal");                  # Set plot axes
     pkg load matgeom;                                      # Load matgeom
       drawDirectedEdges(nodes, edges);                     # Draw directed edges
       plot_labels = drawNodeLabels(nodes, labels);         # Draw node labels

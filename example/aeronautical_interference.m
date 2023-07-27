@@ -11,7 +11,7 @@ L_sf_std__dB = 6;                       # [dB]   Path loss variation standard de
 L_sf__dB = L_sf_std__dB * norm_inv(q);  # [dB]   Path loss variation for the corresponding time availability
 calc_k_factor;                          # Calculate Earth effective radius factor K
 
-## Receiver parameters
+## Receiver parameters simulating aeronautical transceivers
 f__MHz = 100;                           # [MHz]  Transceiver frequency
 B__Hz = 25000;                          # [Hz]   Transceiver bandwidth
 N_F__dB = 10;                           # [dB]   Transceiver noise figure
