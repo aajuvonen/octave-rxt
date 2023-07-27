@@ -7,7 +7,6 @@
 
 function graph_mashed = edit_graph_mash(graph_a, graph_b)
   globals
-    graph_mashed = cat(2,A,zeros(rows(graph_a),columns(graph_b)));
-    graph_mashed = cat(1,graph_mashed,[zeros(rows(graph_b),columns(graph_a)) graph_b]);
-  if(hints) disp("   Combined adjacency matrix generated to 'graph_mashed") endif
+    graph_mashed = cat(2, graph_a, zeros(rows(graph_a), columns(graph_b)));
+    graph_mashed = cat(1, graph_mashed, [zeros(rows(graph_b), columns(graph_a)) graph_b]);
 endfunction

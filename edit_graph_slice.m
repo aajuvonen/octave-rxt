@@ -23,6 +23,5 @@ function graph_sliced = edit_graph_slice(param_graph, param_nodes, inverse = 0)
         graph_sliced(:,param_nodes(i)) = param_graph(:,param_nodes(i));  # Fill cols
       endfor
     endif
-
-  if(hints) disp("   Sliced adjacency matrix generated to 'graph_sliced'") endif
+    
 endfunction
