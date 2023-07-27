@@ -10,12 +10,12 @@
 ##
 ## Output:  L_hata__dB  path loss          [dB]
 
-function L_hata__dB = model_hata_mod(d__km, h_1__meter, h_2__meter,param_u = 0, param_u_r = 0, param_b = 15.849)
+function L_hata__dB = model_hata_mod(d__km, h_1__meter, h_2__meter, param_u = 0, param_u_r = 0, param_b = 15.849)
   globals
 
   if(warnings)
     if(d__km > 100) disp("Warning: distance exceeds model maximum 100 km") endif
-    d_hor = calc_d_hor(h_1__meter,h_2__meter);
+    d_hor = calc_d_hor(h_1__meter, h_2__meter);
     if(d__km > d_hor) disp("Warning: distance exceeds radio horizon") endif
     if(h_1__meter < 30) disp("Warning: terminal 1 height lower than model minimum 30 m") endif
     if(h_1__meter > 300) disp("Warning: terminal 1 height exceeds model maximum 300 m") endif
@@ -33,7 +33,7 @@ function L_hata__dB = model_hata_mod(d__km, h_1__meter, h_2__meter,param_u = 0, 
     L_ps = -2 * log10(f__MHz / 28)^2 - 5.4;                                        # Eq. (7.15)
     L_po = -4.78 * log10(f__MHz)^2 + 18.33 * log10(f__MHz) - 40.94;                # Eq. (7.16)
     F_1 = (300^4) / (f__MHz^4 + 300^4);                                            # Eq. (7.17)
-    F_2 = (f__MHz^4) / (300^4 + f^4);                                              # Eq. (7.18)
+    F_2 = (f__MHz^4) / (300^4 + f__MHz^4);                                         # Eq. (7.18)
     S_ks_1 = 27 + (f__MHz/230);
     S_ks_2 = 17 .* (h_1__meter + 20);
     S_ks_3 = 17 .* (h_1__meter + 20) + d__km.^2;
