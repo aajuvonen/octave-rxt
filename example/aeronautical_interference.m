@@ -37,7 +37,7 @@ node_tx_pwr(:,1) = [100;15;15;15;15;15;15;15;15;15;15;15;15;15;15;15;15;15;15;15
 
 ## Node transmittance status [bool]
 node_tx_pwr(:,2) = [1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1,1,0,1,1,0,0,1,1,0,1,1,1,1,1,1,0,0,1,1,0,1,0,1,1,1,0,1,1,0,1,1,1,1,1];
-# node_tx_pwr(:,2) = ones(1,50);
+# node_tx_pwr(:,2) = ones(1, length(node_tx_pwr));
 
 % calc_node_path_loss_fsl;               # Calculate path losses using parametric variant of ITU-R P.525-4 spreading loss model
 calc_node_path_loss_itaero;             # Calculate path losses using itaero model
