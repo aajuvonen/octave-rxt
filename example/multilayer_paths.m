@@ -37,21 +37,16 @@ node_tx_pwr(:,2) = ones(1, rows(node_tx_pwr));
 calc_node_path_loss_hata_mod(1, 0.5);   # Calculate path losses using modified Hata model
 calc_node_rx_pwr;                       # Calculate node received powers
 calc_node_cnr;                          # Calculate node carrier-to-noise ratios
-
 draw_graph_node_link;                   # Draw graph for node links
-
-if(graphtools) disp(" * Call 'find_cliques(graph_node_link)' to find strongly connected components") endif
-if(graphtools) disp(" * Call 'find_degrees(graph_node_link)' to find node degrees, indegrees and outdegrees") endif
 
 
 ###################
 ## LOGICAL LAYER ##
 ###################
 
-## Initialize an empty graph for logical connections
+## Initialize an empty graph for logical connections and find physical layer's strongly connected components
 graph_nodes_log = zeros(node_count, node_count);
-
-find_cliques(graph_node_link);          # Find physical layer's strongly connected components
+find_cliques(graph_node_link);
 
 ## Loop through node cliques and populate the logical graph accordingly
 for i = 1:node_clique_count
