@@ -63,3 +63,4 @@ global labels;                    # Graph labels
 ## Generated graphs
 global graph_node_link;           # Graph for node links
 global graph_node_jsr;            # Graph for jamming-to-signal ratio
+global graph_node_logical;        # Graph for node logical layer
