@@ -22,5 +22,5 @@ function draw_graph_node_logical(param_graph)
 
   ticstop
   if(hints) disp("   Node logical adjacency matrix generated to 'graph_node_logical'") endif
-  if(hints) disp("   Call 'plot_graph(graph_node_logical, \"logical\")' to plot graph") endif
+  if(hints) disp("   Use 'graph_node_logical' as a second argument to 'plot_graph' to plot graph") endif
 endfunction

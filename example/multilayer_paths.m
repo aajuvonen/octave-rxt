@@ -46,30 +46,5 @@ draw_graph_node_link;                      # Draw graph for node links
 
 draw_graph_node_logical(graph_node_link);  # Draw logical graph from cliques
 
-## Save original values
-node_xyz_orig = node_xyz;
-node_count_orig = node_count;
-graph_node_logical_orig = graph_node_logical;
-
-plot_offset__km = 30;                      # Amount of x-offset for the logical nodes
-
-## Append physical layer node_xyz with an xy-offset clone set of nodes
-node_xyz = [node_xyz; [node_xyz(:,1,1) + plot_offset__km, node_xyz(:,2,1), zeros(rows(node_xyz),1)]];
-
-## Offset the node 1's logical connection array by node count
-graph_node_logical = edit_graph_mash(zeros(node_count, node_count), graph_node_logical);
-
-## Double the node count in order to draw the physical and logical layers to the same plot
-node_count *= 2;
-
-gplot(graph_node_logical, [node_xyz(:,1,1) node_xyz(:,2,1)], "m");
-
 ## Plot graphs
-plot_graph(graph_node_link)                # Plot physical layer graph
-plot_graph(graph_node_logical, "log");     # Plot logical layer graph
-
-## Reset original values and work variables
-node_xyz = node_xyz_orig; clear node_xyz_orig;
-node_count = node_count_orig; clear node_count_orig;
-graph_node_logical = graph_node_logical_orig; clear graph_node_logical_orig;
-clear plot_offset__km;
+plot_graph(graph_node_link, graph_node_logical);
