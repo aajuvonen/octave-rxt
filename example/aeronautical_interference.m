@@ -50,3 +50,5 @@ draw_graph_node_jsr;                    # Draw graph for jamming-to-signal ratio
 
 if(graphtools) disp(" * Call 'find_cliques(graph_node_jsr)' to find strongly connected components") endif
 if(graphtools) disp(" * Call 'find_degrees(graph_node_jsr)' to find node degrees, indegrees and outdegrees") endif
+
+plot_graph(graph_node_jsr);             # Plot JSR graph
