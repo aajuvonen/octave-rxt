@@ -3,6 +3,10 @@ disp("   Artturi Juvonen 2023")
 disp("   artturi@juvonen.eu")
 disp("")
 
+####################
+## PHYSICAL LAYER ##
+####################
+
 ## Ambient parameters
 T_0 = 270;                              # [K]    Ambient temperature
 QNH = 961;                              # [hPa]  Atmospheric pressure
@@ -19,8 +23,7 @@ SNR_req__dB = 15;                       # [dB]   Transceiver signal-to-noise rat
 calc_rx_params;                         # Calculate receiver parameters
 
 ## Node 3D-coordinates
-node_xyz = [20.194,14.617,0.002;12.872,32.761,0.010;37.279,19.865,0.006;24.941,21.819,0.005;22.575,32.132,0.001;11.233,27.961,0.010;24.818,17.711,0.010;25.788,27.591,0.002;21.888,27.870,0.002;13.139,17.800,0.007;13.135,37.876,0.004;23.435,36.312,0.003;13.962,21.043,0.009;31.935,12.145,0.009;27.045,31.655,0.008;12.707,22.606,0.008;16.360,21.629,0.008;31.502,17.950,0.007;30.289,39.787,0.005;29.274,27.727,0.009];
-% node_xyz = [61.556,53.945,0.001;66.410,53.744,0.005;43.017,94.629,0.008;18.223,82.636,0.002;73.556,32.049,0.003;23.531,21.165,0.005;96.940,10.892,0.004;88.237,97.749,0.004;12.046,50.171,0.010;33.356,88.881,0.008;80.452,16.080,0.008;77.427,89.386,0.008;10.562,50.680,0.002;46.283,85.974,0.003;64.035,27.566,0.005;95.590,61.273,0.003;12.511,50.124,0.005;23.594,43.101,0.003;16.671,42.263,0.007;58.568,59.708,0.001];
+node_xyz = [20.194,14.617,0.03;12.872,32.761,0.010;37.279,19.865,0.006;24.941,21.819,0.005;22.575,32.132,0.001;11.233,27.961,0.010;24.818,17.711,0.010;25.788,27.591,0.002;21.888,27.870,0.002;13.139,17.800,0.007;13.135,37.876,0.004;23.435,36.312,0.003;13.962,21.043,0.009;31.935,12.145,0.009;27.045,31.655,0.008;12.707,22.606,0.008;16.360,21.629,0.008;31.502,17.950,0.007;30.289,39.787,0.005;29.274,27.727,0.009];
 
 ## Number of transceivers
 node_count = rows(node_xyz);
@@ -39,3 +42,36 @@ draw_graph_node_link;                   # Draw graph for node links
 
 if(graphtools) disp(" * Call 'find_cliques(graph_node_link)' to find strongly connected components") endif
 if(graphtools) disp(" * Call 'find_degrees(graph_node_link)' to find node degrees, indegrees and outdegrees") endif
+
+
+###################
+## LOGICAL LAYER ##
+###################
+
+## Initialize an empty graph for logical connections
+graph_nodes_log = zeros(node_count, node_count);
+
+find_cliques(graph_node_link);          # Find physical layer's strongly connected components
+
+## Loop through node cliques and populate the logical graph accordingly
+for i = 1:node_clique_count
+  for j = eval(['node_clique_' num2str(i)])
+    graph_nodes_log(j, eval(['node_clique_' num2str(i)])) = 1;
+  endfor
+endfor
+
+plot_log_offset__km = 30;               # Horizontal offset in logical layer plotting 
+
+## Append physical layer node_xyz with an xy-offset clone set of nodes
+node_xyz = [node_xyz; [node_xyz(:,1,1) + plot_log_offset__km, node_xyz(:,2,1), zeros(rows(node_xyz),1)]];
+
+## Offset the node 1's logical connection array by node count
+graph_nodes_log = edit_graph_mash(zeros(node_count, node_count), graph_nodes_log);
+
+node_count *= 2;                        # Double the node count in order to draw the physical and logical layers to the same plot
+plot_graph(graph_node_link)             # Plot physical layer graph
+
+## Plot logical layer graph and remove axis
+gplot(graph_nodes_log, [node_xyz(:,1,1) node_xyz(:,2,1)], "m");
+axis("auto")
+axis("off")
