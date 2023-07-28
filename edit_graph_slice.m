@@ -24,4 +24,6 @@ function graph_sliced = edit_graph_slice(param_graph, param_nodes, inverse = 0)
       endfor
     endif
     
+    graph_sliced = logical(graph_sliced);
+
 endfunction
