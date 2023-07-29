@@ -12,7 +12,6 @@ function plot_graph(param_graph_phy, param_graph_log)
 
     ## Prerequisite for drawing both physical and logical layers
     if(exist("param_graph_log"))
-      figure(1, 'position',[320,240,1024,512]);
       subplot(1,2,1)
     endif
 
@@ -26,7 +25,6 @@ function plot_graph(param_graph_phy, param_graph_log)
     if(exist("param_graph_log"))
       subplot(1,2,2)
       edges = getEdges(param_graph_log, 'adjacency')(:,1:2);  # Get edge list
-      labels += node_count;
       plot_worker("log")
     endif
 
