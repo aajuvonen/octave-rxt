@@ -2,6 +2,7 @@ clear all
 close all
 clc
 ignore_function_time_stamp ("all")
+pkg load matgeom
 
 globals                           # Declare global variables
 constants                         # Set constants
