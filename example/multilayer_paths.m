@@ -1,4 +1,5 @@
 disp("Exemplary multilayer graphs")
+disp("Transceivers simulating TETRA")
 disp("   Artturi Juvonen 2023")
 disp("   artturi@juvonen.eu")
 disp("")
@@ -22,7 +23,7 @@ N_F__dB = 10;                           # [dB]   Transceiver noise figure
 SNR_req__dB = 15;                       # [dB]   Transceiver signal-to-noise ratio requirement
 calc_rx_params;                         # Calculate receiver parameters
 
-## Node 3D-coordinates
+## Node 3D-coordinates in kilometers
 node_xyz = [20.194,14.617,0.03;12.872,32.761,0.010;37.279,19.865,0.006;24.941,21.819,0.005;22.575,32.132,0.001;11.233,27.961,0.010;24.818,17.711,0.010;25.788,27.591,0.002;21.888,27.870,0.002;13.139,17.800,0.007;13.135,37.876,0.004;23.435,36.312,0.003;13.962,21.043,0.009;31.935,12.145,0.009;27.045,31.655,0.008;12.707,22.606,0.008;16.360,21.629,0.008;31.502,17.950,0.007;30.289,39.787,0.005;29.274,27.727,0.009];
 
 ## Number of transceivers

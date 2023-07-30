@@ -43,5 +43,6 @@ if(hints)
   disp("To get started, run exemplary calculations with:")
   disp("   source example/aeronautical_interference.m")
   disp("   source example/multilayer_paths.m")
+  disp("   source example/cyber_environment.m")
   disp("")
 endif
