@@ -45,10 +45,11 @@ node_tx_pwr(:,1) = [dbm2watt(20); dbm2watt(20); dbm2watt(20)];
 ## Node transmittance status [bool]
 node_tx_pwr(:,2) = ones(1, rows(node_tx_pwr));
 
-% calc_node_path_loss_p1238;               # Calculate path losses using modified Hata model
+% calc_node_path_loss_p1238;               # Calculate path losses using ITU-R P.1238
 
+## TODO: Fix P.1238 model. For now FSL is used instead
 node_xyz = node_xyz / 1000;
-calc_node_path_loss_fsl;               # Calculate path losses using modified Hata model
+calc_node_path_loss_fsl;                 # Calculate path losses using free space loss
 node_xyz = node_xyz * 1000;
 
 calc_node_rx_pwr;                        # Calculate node received powers
@@ -65,16 +66,21 @@ x_offset_log = (ceil(max(max(node_xyz))) / 10) * 10;
 
 ## Clone physical nodes as a logical component
 node_xyz_log = [node_xyz; node_xyz];
-node_xyz_log(rows(node_xyz) + 1, 1, 1) += x_offset_log;
+node_xyz_log((rows(node_xyz) + 1):end, 1, 1) += x_offset_log;
 node_xyz_log((rows(node_xyz) + 1):end, 3, 1) = 0;
 
 ## Create a random tree graph
 graph_cyber = edgeL2adj(canonicalNets(10, "tree", 3));
-node_xyz_log = [node_xyz_log; x_offset_log * 2 + rand * 15, x_offset_log * 2 + rand * 15, 0; x_offset_log * 2 + rand * 15, x_offset_log * 2 + rand * 15, 0; x_offset_log * 2 + rand * 15, x_offset_log * 2 + rand * 15, 0; x_offset_log * 2 + rand * 15, x_offset_log * 2 + rand * 15, 0; x_offset_log * 2 + rand * 15, x_offset_log * 2 + rand * 15, 0; x_offset_log * 2 + rand * 15, x_offset_log * 2 + rand * 15, 0; x_offset_log * 2 + rand * 15, x_offset_log * 2 + rand * 15, 0; x_offset_log * 2 + rand * 15, x_offset_log * 2 + rand * 15, 0; x_offset_log * 2 + rand * 15, x_offset_log * 2 + rand * 15, 0; x_offset_log * 2 + rand * 15, x_offset_log * 2 + rand * 15, 0];
-graph_combined = edit_graph_mash(edit_graph_mash(graph_node_link, ones(rows(node_xyz), rows(node_xyz))), graph_cyber);
+x_offset_log2 = [1:rows(graph_cyber)];
+x_offset_log2 = x_offset_log2 .* x_offset_log ./ 10;
+node_xyz = [node_xyz_log; x_offset_log * 2, 15 + rand * 15, 0; x_offset_log * 2, 15 + rand * 15, 0; x_offset_log * 2, 15 + rand * 15, 0; x_offset_log * 2, 15 + rand * 15, 0; x_offset_log * 2, 15 + rand * 15, 0; x_offset_log * 2, 15 + rand * 15, 0; x_offset_log * 2, 15 + rand * 15, 0; x_offset_log * 2, 15 + rand * 15, 0; x_offset_log * 2, 15 + rand * 15, 0; x_offset_log * 2, 15 + rand * 15, 0];
+node_xyz(rows(node_xyz_log) + 1:end,1,1) += x_offset_log2';
+
+## Create combined graph with the physical component and the logical components
+graph_node_combined = edit_graph_mash(edit_graph_mash(graph_node_link, graph_node_link + eye(size(graph_node_link))), graph_cyber);
 
 ## Number of transceivers
-node_count = rows(graph_combined);
+node_count = rows(graph_node_combined);
 
 ## Plot graphs
-plot_graph(graph_node_link, graph_combined);
+plot_graph(graph_node_link, graph_node_combined);
