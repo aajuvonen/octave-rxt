@@ -19,10 +19,10 @@ function plot_worker(param_type = "phy")
 
     ## Set plot axis value
     axisscale = 10 ^ length(num2str(ceil((max(max(node_xyz))))) - 1) / 2;
-    axisval = ceil((max(max(node_xyz))) / axisscale) * axisscale;        
+    axisval = ceil((max(max(node_xyz))) / axisscale) * axisscale;
     
     ## Set plot axes
-    axis([0 axisval 0 axisval], "equal");                  
+    axis([0 axisval 0 axisval], "equal");
     if(param_type == "log")
       axis("off")
     endif

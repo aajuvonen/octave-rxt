@@ -33,8 +33,8 @@ N_F__dB = 8;                             # [dB]   Transceiver noise figure
 SNR_req__dB = 25;                        # [dB]   Transceiver signal-to-noise ratio requirement
 calc_rx_params;                          # Calculate receiver parameters
 
-## Node 3D-coordinates in meters
-node_xyz = [5+rand*10,15+rand*10,1+rand*2; 5+rand*10,15+rand*10,1+rand*2; 5+rand*10,15+rand*10,1+rand*2]
+## Node physical layer 3D-coordinates in meters
+node_xyz = [5+rand*10,15+rand*10,1+rand*2; 5+rand*10,15+rand*10,1+rand*2; 5+rand*10,15+rand*10,1+rand*2];
 
 ## Number of transceivers
 node_count = rows(node_xyz);
@@ -56,17 +56,25 @@ calc_node_cnr;                           # Calculate node carrier-to-noise ratio
 draw_graph_node_link;                    # Draw graph for node links
 
 
-% ###################
-% ## LOGICAL LAYER ##
-% ###################
+###################
+## LOGICAL LAYER ##
+###################
+
+## Amount of x-offset in logical component drawing
+x_offset_log = (ceil(max(max(node_xyz))) / 10) * 10;
+
+## Clone physical nodes as a logical component
+node_xyz_log = [node_xyz; node_xyz];
+node_xyz_log(rows(node_xyz) + 1, 1, 1) += x_offset_log;
+node_xyz_log((rows(node_xyz) + 1):end, 3, 1) = 0;
 
 ## Create a random tree graph
 graph_cyber = edgeL2adj(canonicalNets(10, "tree", 3));
-node_xyz = [node_xyz; 15+rand*15,15+rand*15,0; 15+rand*15,15+rand*15,0; 15+rand*15,15+rand*15,0; 15+rand*15,15+rand*15,0; 15+rand*15,15+rand*15,0; 15+rand*15,15+rand*15,0; 15+rand*15,15+rand*15,0; 15+rand*15,15+rand*15,0; 15+rand*15,15+rand*15,0; 15+rand*15,15+rand*15,0];
-graph_combined = edit_graph_mash(graph_node_link, graph_cyber);
+node_xyz_log = [node_xyz_log; x_offset_log * 2 + rand * 15, x_offset_log * 2 + rand * 15, 0; x_offset_log * 2 + rand * 15, x_offset_log * 2 + rand * 15, 0; x_offset_log * 2 + rand * 15, x_offset_log * 2 + rand * 15, 0; x_offset_log * 2 + rand * 15, x_offset_log * 2 + rand * 15, 0; x_offset_log * 2 + rand * 15, x_offset_log * 2 + rand * 15, 0; x_offset_log * 2 + rand * 15, x_offset_log * 2 + rand * 15, 0; x_offset_log * 2 + rand * 15, x_offset_log * 2 + rand * 15, 0; x_offset_log * 2 + rand * 15, x_offset_log * 2 + rand * 15, 0; x_offset_log * 2 + rand * 15, x_offset_log * 2 + rand * 15, 0; x_offset_log * 2 + rand * 15, x_offset_log * 2 + rand * 15, 0];
+graph_combined = edit_graph_mash(edit_graph_mash(graph_node_link, ones(rows(node_xyz), rows(node_xyz))), graph_cyber);
 
 ## Number of transceivers
-node_count = rows(node_xyz);
+node_count = rows(graph_combined);
 
 ## Plot graphs
 plot_graph(graph_node_link, graph_combined);
