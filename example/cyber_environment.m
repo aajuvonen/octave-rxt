@@ -64,20 +64,32 @@ draw_graph_node_link;                    # Draw graph for node links
 ## Amount of x-offset in logical component drawing
 x_offset_log = (ceil(max(max(node_xyz))) / 10) * 10;
 
-## Clone physical nodes as a logical component
+## Clone physical nodes as a logical component (nodes 4-6)
 node_xyz_log = [node_xyz; node_xyz];
 node_xyz_log((rows(node_xyz) + 1):end, 1, 1) += x_offset_log;
 node_xyz_log((rows(node_xyz) + 1):end, 3, 1) = 0;
 
-## Create a random tree graph
+## Create a random tree graph as an additional logical component (nodes 7-16)
 graph_cyber = edgeL2adj(canonicalNets(10, "tree", 3));
 x_offset_log2 = [1:rows(graph_cyber)];
 x_offset_log2 = x_offset_log2 .* x_offset_log ./ 10;
 node_xyz = [node_xyz_log; x_offset_log * 2, 15 + rand * 15, 0; x_offset_log * 2, 15 + rand * 15, 0; x_offset_log * 2, 15 + rand * 15, 0; x_offset_log * 2, 15 + rand * 15, 0; x_offset_log * 2, 15 + rand * 15, 0; x_offset_log * 2, 15 + rand * 15, 0; x_offset_log * 2, 15 + rand * 15, 0; x_offset_log * 2, 15 + rand * 15, 0; x_offset_log * 2, 15 + rand * 15, 0; x_offset_log * 2, 15 + rand * 15, 0];
 node_xyz(rows(node_xyz_log) + 1:end,1,1) += x_offset_log2';
+clear x_offset_log x_offset_log2
 
 ## Create combined graph with the physical component and the logical components
 graph_node_combined = edit_graph_mash(edit_graph_mash(graph_node_link, graph_node_link + eye(size(graph_node_link))), graph_cyber);
+
+## Connect cloned logical components to their own physical counterparts
+ind = rows(graph_node_link);
+graph_node_combined(ind+1:ind*2,1:ind) = eye(ind,ind);
+graph_node_combined(1:ind,ind+1:ind*2) = eye(ind,ind);
+clear ind
+
+## The physical node 1 represents a router, and its corresponding logical node is 4
+## Connect logical node 4 to logical node 7, which connects the router to the tree graph
+graph_node_combined(rows(graph_node_link) * 2 + 1, rows(graph_node_link) + 1) = 1;
+graph_node_combined(rows(graph_node_link) + 1, rows(graph_node_link) * 2 + 1) = 1;
 
 ## Number of transceivers
 node_count = rows(graph_node_combined);
