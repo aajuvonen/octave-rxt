@@ -55,7 +55,7 @@ draw_graph_node_link;                   # Draw graph for node links
 node_xyz = [node_xyz; node_xyz(1,1,1), node_xyz(1,2,1)-20, 0];  # ACARS backend server
 node_xyz = [node_xyz; node_xyz(2,1,1), node_xyz(2,2,1)-20, 0];  # attacker's backend server
 
-graph_node_logical = [0 1; 1 0];        # The logical component has two backend servers connected by links
+graph_node_logical = [0 0; 0 0];        # The logical component has two backend servers with no links
 
 ## Create combined graph with the physical component and the logical components
 graph_node_combined = edit_graph_mash(graph_node_link, graph_node_logical);
@@ -63,10 +63,6 @@ graph_node_combined = edit_graph_mash(graph_node_link, graph_node_logical);
 ## Connect physical node 1 to logical node 3, which connects the ground ACARS node to its backend server
 graph_node_combined(1, 3) = 1;
 graph_node_combined(3, 1) = 1;
-
-## Connect logical node 3 to logical node 4, which connects the ACARS backend server to the attacker's backend server
-graph_node_combined(3, 4) = 1;
-graph_node_combined(4, 3) = 1;
 
 ## Number of transceivers
 node_count = rows(graph_node_combined);
