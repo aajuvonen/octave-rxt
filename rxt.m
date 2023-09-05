@@ -39,11 +39,8 @@ if(hints)
   disp("   Hints for octave-networks-toolbox are marked with '*'") endif
   disp("")
 
-  disp("To get started, run exemplary calculations with:")
-  disp("   source example/cyber_environment.m")
-  disp("   source example/aeronautical_interference.m")
-  disp("   source example/tetra_multilayer.m")
-  disp("   source example/wifi_deauth.m")
+  disp("To get started, run exemplary calculations by using 'source example/' followed by filenames:")
+  ls("example/")
   disp("")
 endif
 
