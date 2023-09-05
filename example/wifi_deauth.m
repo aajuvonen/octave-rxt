@@ -89,15 +89,6 @@ graph_node_combined = edit_graph_mash(graph_node_link, graph_node_logical);
 graph_node_combined(rows(graph_node_link) + 1, 1) = 1;
 graph_node_combined(1, rows(graph_node_link) + 1) = 1;
 
-
-################################
-## DEAUTHENTICATING ATTACKERS ##
-################################
-
-
-
-
-
 ## Number of transceivers
 node_count = rows(graph_node_combined);
 
