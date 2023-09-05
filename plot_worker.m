@@ -8,7 +8,7 @@ function plot_worker(param_type = "phy")
       plot(nodes(:,1), nodes(:,2), ".k", "markersize",8);        # Draw nodes
 
       ## Get plot axis scale
-      axisscale = 10 ^ length(num2str(ceil((max(max(node_xyz(1:rows(nodes),:,:)))))) - 1) / 4;
+      axisscale = 10 ^ length(num2str(ceil((max(max(node_xyz(1:rows(nodes),1:2,:)))))) - 1) / 4;
 
       drawDirectedEdges(nodes, edges);                           # Draw directed edges
 
@@ -26,7 +26,7 @@ function plot_worker(param_type = "phy")
     set(plot_labels, "fontsize", 12);                            # Resize node label font
 
     ## Set plot axis value
-    axisval = ceil((max(max(node_xyz))) / axisscale) * axisscale;
+    axisval = ceil((max(max(node_xyz(:,1:2,:)))) / axisscale) * axisscale;
     
     ## Set plot axes
     axis([0 axisval 0 axisval], "equal");
