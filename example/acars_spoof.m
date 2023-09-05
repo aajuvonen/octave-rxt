@@ -17,7 +17,7 @@ L_sf__dB = L_sf_std__dB * norm_inv(q);  # [dB]   Path loss variation for the cor
 calc_k_factor;                          # Calculate Earth effective radius factor K
 
 ## Receiver parameters simulating aeronautical transceivers
-f__MHz = 100;                           # [MHz]  Transceiver frequency
+f__MHz = 125;                           # [MHz]  Transceiver frequency
 B__Hz = 25000;                          # [Hz]   Transceiver bandwidth
 N_F__dB = 10;                           # [dB]   Transceiver noise figure
 SNR_req__dB = 10;                       # [dB]   Transceiver signal-to-noise ratio requirement
@@ -55,7 +55,7 @@ draw_graph_node_link;                   # Draw graph for node links
 node_xyz = [node_xyz; node_xyz(1,1,1), node_xyz(1,2,1)-20, 0];  # ACARS backend server
 node_xyz = [node_xyz; node_xyz(2,1,1), node_xyz(2,2,1)-20, 0];  # attacker's backend server
 
-graph_node_logical = [1 1; 1 1];        # The logical component has two backend servers connected by links
+graph_node_logical = [0 1; 1 0];        # The logical component has two backend servers connected by links
 
 ## Create combined graph with the physical component and the logical components
 graph_node_combined = edit_graph_mash(graph_node_link, graph_node_logical);
