@@ -55,10 +55,10 @@ node_xyz = node_xyz * 1000;
 calc_node_rx_pwr;                        # Calculate node received powers
 
 ## Node 5 (attacker 2) needs to receive only 4 (attacker 1)
-node_rx_pwr(5,1:3) = -Inf;               # Discard connections other than those connected to node 4 (attacker 1)
+node_rx_pwr(1:3,5) = -Inf;               # Discard connections other than those connected to node 4 (attacker 1)
 
 ## Only node 1 (hotstpot) needs to receive node 5 (attacker 2)
-node_rx_pwr(2:end,5) = -Inf;
+node_rx_pwr(5,2:end) = -Inf;
 
 calc_node_cnr;                           # Calculate node carrier-to-noise ratios
 draw_graph_node_link;                    # Draw graph for node links
@@ -74,7 +74,7 @@ node_xyz_orig = node_xyz;                # Copy node_xyz
 x_offset_log = (ceil(max(max(node_xyz))) / 10) * 10;
 
 ## Create a single node graph as an additional logical component
-graph_node_logical = 1;
+graph_node_logical = 0;
 x_offset_log2 = [1:rows(graph_node_logical)];
 x_offset_log2 = x_offset_log2 .* x_offset_log ./ 10;
 node_xyz = [node_xyz_orig; x_offset_log, 5 + rand * 5, 0];
