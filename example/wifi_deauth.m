@@ -1,4 +1,4 @@
-disp("Exemplary logically connected cyber environment")
+disp("Exemplary Wi-Fi hotspot deauthentication simulation")
 disp("Transceivers simulating 802.11n Wi-Fi")
 disp("   Artturi Juvonen 2023")
 disp("   artturi@juvonen.eu")
@@ -34,26 +34,31 @@ SNR_req__dB = 25;                        # [dB]   Transceiver signal-to-noise ra
 calc_rx_params;                          # Calculate receiver parameters
 
 ## Node physical layer 3D-coordinates in meters
-node_xyz = [5+rand*20,15+rand*20,1+rand*2; 5+rand*20,15+rand*20,1+rand*2; 5+rand*20,15+rand*20,1+rand*2];
+node_xyz = [2+rand*5,2+rand*5,1+rand*2; 2+rand*5,2+rand*5,1+rand*2; 2+rand*5,2+rand*5,1+rand*2];
+
+## Attacker 3D-coordinates in meters
+node_xyz = [node_xyz; 5+rand*5,5+rand*5,1+rand*2; 5+rand*5,5+rand*5,1+rand*2];
 
 ## Number of transceivers
 node_count = rows(node_xyz);
 
-## Node EIRP [W] (20 dBm for Wi-Fi)
-node_tx_pwr(:,1) = [dbm2watt(20); dbm2watt(20); dbm2watt(20)];
+## Node EIRP [W] (20 dBm for Wi-Fi, 1 W for attackers)
+node_tx_pwr(:,1) = [dbm2watt(20); dbm2watt(20); dbm2watt(20); 1; 1];
 
 ## Node transmittance status [bool]
 node_tx_pwr(:,2) = ones(1, rows(node_tx_pwr));
 
-% calc_node_path_loss_p1238;               # Calculate path losses using ITU-R P.1238
-
-## TODO: Fix P.1238 model. For now FSL is used instead
 node_xyz = node_xyz / 1000;
-calc_node_path_loss_fsl;                 # Calculate path losses using free space loss
+calc_node_path_loss_fsl(3);              # Calculate path losses using free space loss with a loss exponent alpha = 3
 node_xyz = node_xyz * 1000;
 
 calc_node_rx_pwr;                        # Calculate node received powers
-node_rx_pwr(2:end,2:end) = -Inf;         # Discard connections other than those connected to node 1 (router)
+
+## Node 5 (attacker 2) needs to receive only 4 (attacker 1)
+node_rx_pwr(5,1:3) = -Inf;               # Discard connections other than those connected to node 4 (attacker 1)
+
+## Only node 1 (hotstpot) needs to receive node 5 (attacker 2)
+node_rx_pwr(2:end,5) = -Inf;
 
 calc_node_cnr;                           # Calculate node carrier-to-noise ratios
 draw_graph_node_link;                    # Draw graph for node links
@@ -68,27 +73,30 @@ node_xyz_orig = node_xyz;                # Copy node_xyz
 ## Amount of x-offset in logical component drawing
 x_offset_log = (ceil(max(max(node_xyz))) / 10) * 10;
 
-## Create a random tree graph as an additional logical component (nodes 4-7)
-graph_node_logical = edgeL2adj(canonicalNets(4, "tree", 2));
+## Create a single node graph as a additional logical component
+graph_node_logical = [1];
 x_offset_log2 = [1:rows(graph_node_logical)];
 x_offset_log2 = x_offset_log2 .* x_offset_log ./ 10;
-node_xyz = [node_xyz_orig; x_offset_log, 15 + rand * 15, 0; x_offset_log, 15 + rand * 15, 0; x_offset_log, 15 + rand * 15, 0; x_offset_log, 15 + rand * 15, 0];
+node_xyz = [node_xyz_orig; x_offset_log, 5 + rand * 5, 0];
 node_xyz(rows(node_xyz_orig) + 1:end,1,1) += x_offset_log2';
 clear x_offset_log x_offset_log2
 
 ## Create combined graph with the physical component and the logical components
 graph_node_combined = edit_graph_mash(graph_node_link, graph_node_logical);
 
-% ## Connect cloned logical components to their own physical counterparts
-% ind = rows(graph_node_link);
-% graph_node_combined(ind+1:ind*2,1:ind) = eye(ind,ind);
-% graph_node_combined(1:ind,ind+1:ind*2) = eye(ind,ind);
-% clear ind
-
-## The physical node 1 represents a router, and its corresponding logical node is 1
-## Connect logical node 1 to logical node 4, which connects the router to the tree graph
+## The physical node 1 represents a hotspot
+## Connect logical node 1 to logical node 6, which connects the router to the server
 graph_node_combined(rows(graph_node_link) + 1, 1) = 1;
 graph_node_combined(1, rows(graph_node_link) + 1) = 1;
+
+
+################################
+## DEAUTHENTICATING ATTACKERS ##
+################################
+
+
+
+
 
 ## Number of transceivers
 node_count = rows(graph_node_combined);
