@@ -1,6 +1,6 @@
 ## Calculate node jamming rings
 ##
-## Inputs:  index_jammer  jammer node index   ind.  (1st)   Jammer node's index, default is 1
+## Inputs:  param_jammer  jammer node index   ind.  (1st)   Jammer node's index, default is 1
 ##          P_vic__watt   victim TX power     [W]           Victim nodes' transmit power, default is average power (excluding non-transmitters)
 ##          n_vic         victim channels     int.  (1)     Number of jammed channels, default is 1
 ##          d_vic__km     victim distance     [km]  (avg.)  Distance between jammed nodes, default is average distance (excluding jammer)
