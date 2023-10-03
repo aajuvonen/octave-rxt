@@ -6,9 +6,9 @@
 ## Output: mat_D        mat.  Degree matrix
 
 function mat_D = matrix_degree(param_graph, param_dir = 1)
-  disp("Creating degree matrix...")
-  ticstart
   globals
+  if(funcinfo) disp("Creating degree matrix...") endif
+  ticstart
     find_degrees(param_graph);               # Requires octave-networks-toolbox
     mat_D = diag(node_degrees(param_dir,:))
   ticstop

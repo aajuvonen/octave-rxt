@@ -6,9 +6,9 @@
 ## Output: mat_L        mat.  Laplacian matrix
 
 function mat_L = matrix_laplacian(param_graph, param_dir = 1)
-  disp("Creating Laplacian matrix...")
-  ticstart
   globals
+  if(funcinfo) disp("Creating Laplacian matrix...") endif
+  ticstart
     mat_D = matrix_degree(param_graph,param_dir);  # Requires octave-networks-toolbox
     mat_L = mat_D - param_graph;
   ticstop

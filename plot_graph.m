@@ -6,9 +6,9 @@
 ## Output:  Graphical representation
 
 function plot_graph(param_graph_phy, param_graph_log)
-  disp("Plotting graph...")
-  ticstart
   globals
+  if(funcinfo) disp("Plotting graph...") endif
+  ticstart
 
     ## Prerequisite for drawing both physical and logical layers
     if(exist("param_graph_log"))

@@ -5,9 +5,9 @@
 ## Output:  graph_node_logical  arr.  Adjacency matrix
 
 function draw_graph_node_logical(param_graph)
-  disp("Graphing node logical view... ")
-  ticstart
   globals
+  if(funcinfo) disp("Graphing node logical view... ") endif
+  ticstart
 
     ## Initialize an empty graph for logical connections and find physical layer's strongly connected components
     graph_node_logical = logical(zeros(node_count, node_count));

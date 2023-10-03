@@ -1,9 +1,9 @@
 ## Plot itaero model curve
 
 function plot_model_itaero(h_1__meter, h_2__meter, q_percent = 50)
-  disp("Plotting itaero path loss curve... ")
-  tictart
   globals
+  if(funcinfo) disp("Plotting itaero path loss curve... ") endif
+  tictart
     close all             # Close all plots
     axis_dist = [1:400];  # Distance vector
 

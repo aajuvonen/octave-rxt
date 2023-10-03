@@ -10,12 +10,14 @@
 ## Output: node_clique_n  num.  Node index list
 
 function find_cliques(param_graph)
-  disp("For now the function outputs all cliques as arrays of node indices.")
-  disp("However, only the first fifty (50) will be assigned in variables 'node_clique_n'")
-  disp("")
-  disp("Finding cliques using Tarjan...")
-  ticstart
   globals
+  if(hints)
+    disp("For now the function outputs all cliques as arrays of node indices.")
+    disp("However, only the first fifty (50) will be assigned in variables 'node_clique_n'")
+    disp("")
+  endif
+  if(funcinfo) disp("Finding cliques using Tarjan...") endif
+  ticstart
     strongs = tarjan(adj2adjL(param_graph));              # Create list of strong components in cell array format
     j = 0;                                                # Initialise clique counter
     for i = 1:length(strongs)                             # Run the loop through the cell array 

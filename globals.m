@@ -1,16 +1,5 @@
 settings
-
-## Natual constants
-global c;                               # [m/s]  Speed of light
-global k_B;                             # [J/K]  Bolzmann's constant
-global norm_inv;                        # Inverse of the standard normal cumulative distribution
-
-T_0 = 270;                              # [K]    Ambient temperature
-QNH = 961;                              # [hPa]  Atmospheric pressure
-q = 50;                                 # [%]    Channel time availability
-L_sf_std__dB = 6;                       # [dB]   Path loss variation standard deviation
-L_sf__dB = L_sf_std__dB * norm_inv(q);  # [dB]   Path loss variation for the corresponding time availability
-
+constants
 
 ## Ambient parameters
 global T_0 = 270;                       # [K]    Ambient temperature

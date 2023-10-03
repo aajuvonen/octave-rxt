@@ -4,9 +4,9 @@
 ##          param_victim  victim node indices ind.  (All)   Victim nodes' indices, default is all
 
 function calc_node_jsr(param_jammer = 1, param_victim)
-  disp("Calculating node jamming-to-signal ratios... ")
-  ticstart
   globals
+  if(funcinfo) disp("Calculating node jamming-to-signal ratios... ") endif
+  ticstart
     if(!exist("param_victim"))
       param_victim = 1:node_count;
     endif

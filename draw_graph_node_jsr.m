@@ -1,9 +1,9 @@
 ## Graph jamming-to-signal ratio
 
 function draw_graph_node_jsr
-  disp("Graphing jamming-to-signal ratio... ")
-  ticstart
   globals
+  if(funcinfo) disp("Graphing jamming-to-signal ratio... ") endif
+  ticstart
     graph_node_jsr = node_jsr;
     graph_node_jsr = graph_node_jsr > SNR_req__dB;
     graph_node_jsr(logical(eye(node_count))) = 0;

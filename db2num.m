@@ -5,5 +5,5 @@
 ## Output: retval__num  numeric  num.
 
 function retval__num = db2num(val__dB)
-  retval__num = 10.^(val__dB ./ 10);
+  retval__num = 10 .^(val__dB ./ 10);
 endfunction

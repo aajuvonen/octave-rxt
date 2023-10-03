@@ -11,9 +11,9 @@
 ## Output:            distance  [km]
 
 function calc_node_jam_ring(param_jammer = 1, P_vic__watt, n_vic = 1, d_vic__km, param_alpha = 2, JCR = 1, L_jam = 4)
-  disp("Calculating node jamming rings... ")
-  ticstart
   globals
+  if(funcinfo) disp("Calculating node jamming rings... ") endif
+  ticstart
     ## If the victim's distance relative to each other is not given, calculate node average distance excluding the jammer 
     if(!exist("d_vic__km"))
       nodes = 1:node_count;

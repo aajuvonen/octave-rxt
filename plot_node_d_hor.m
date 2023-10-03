@@ -3,9 +3,9 @@
 ## Input:   node index array
 
 function plot_node_d_hor(param_nodes)
-  disp("Plotting node singular horizons... ")
-  ticstart
   globals
+  if(funcinfo) disp("Plotting node singular horizons... ") endif
+  ticstart
     if(!exist("param_nodes"))
       param_nodes = 1:node_count;  # Default to include all nodes
     endif

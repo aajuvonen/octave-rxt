@@ -16,10 +16,12 @@ disp(datestr(clock()))
 disp("")
 
 if(hints)
+  if(funcinfo)
+    disp("Function info enabled.  Disable by setting 'funcinfo' to 'false'.") endif
   if(warnings)
-  disp("Warnings enabled.       Disable by setting 'warnings' to 'false'.") endif
+    disp("Warnings enabled.       Disable by setting 'warnings' to 'false'.") endif
   if(counter)
-  disp("Runtime timer enabled.  Disable by setting 'counter' to 'false'.") endif
+    disp("Runtime timer enabled.  Disable by setting 'counter' to 'false'.") endif
   disp("Hints enabled.          Disable by setting 'hints' to 'false'.\n")
 
   disp("Path loss models:")

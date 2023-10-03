@@ -3,9 +3,9 @@
 ## Input:  node index array  arr.
 
 function calc_node_d_hor(param_nodes)
-  disp("Calculating node radio horizons... ")
-  ticstart
   globals
+  if(funcinfo) disp("Calculating node radio horizons... ") endif
+  ticstart
     if(!exist("param_nodes"))
       param_nodes = 1:node_count;                                            # Default to include all nodes
       node_d_hor_single = zeros(node_count, node_count);                     # Initialise singular horizon vector
