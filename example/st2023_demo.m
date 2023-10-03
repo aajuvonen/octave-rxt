@@ -17,7 +17,8 @@ SNR_req__dB = 10;                        # [dB]   Transceiver signal-to-noise ra
 calc_rx_params;                          # Calculate receiver parameters
 
 ## Node 3D-coordinates in kilometers
-node_xyz = [118.31,28.33,0.14; 56.91,88.32,1.14; 86.68,85.87,3.82; 58.8,21.88,2.76; 48.24,62.94,8.02; 128.77,170.32,10.22; 167.55,198.61,9.08; 156.21,176.87,2.86; 144.09,222.45,7.18];
+% node_xyz = [118.31,28.33,0.14; 56.91,88.32,1.14; 86.68,85.87,3.82; 58.8,21.88,2.76; 48.24,62.94,8.02; 128.77,170.32,10.22; 167.55,198.61,9.08; 156.21,176.87,2.86; 144.09,222.45,7.18];
+node_xyz = [100+rand*20,10+rand*20,rand; 25+rand*100, 25+rand*100, rand*10; 25+rand*100, 25+rand*100, rand*10; 25+rand*100, 25+rand*100, rand*10; 25+rand*100, 25+rand*100, rand*10; 100+rand*100, 100+rand*100, rand*10; 100+rand*100, 100+rand*100, rand*10; 100+rand*100, 100+rand*100, rand*10; 100+rand*100, 100+rand*100, rand*10];
 
 ## Number of transceivers
 node_count = rows(node_xyz);
