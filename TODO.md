@@ -14,6 +14,7 @@
 - coordinates: MGRS
 - coordinates: ETRS89
 - graph radio coloring
+- change logical clique drawing to reflect actual edges, not connecting all vertices 
 
 # Refactoring
 - prefix all globals with `rxt_`
