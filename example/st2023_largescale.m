@@ -16,7 +16,7 @@ SNR_req__dB = 10;                        # [dB]   Transceiver signal-to-noise ra
 calc_rx_params;                          # Calculate receiver parameters
 
 ## Number of transceivers
-node_count = 500;
+node_count = 300;
 
 ## Node 3D-coordinates in kilometers
 node_xyz = [rand*500,rand*500,rand];
@@ -45,4 +45,4 @@ find_degrees(graph_node_jsr);
 draw_graph_node_logical(graph_node_jsr);
 
 ## Plot graphs
-plot_graph(graph_node_jsr, graph_node_logical);
+disp("   Call 'plot_graph(graph_node_jsr, graph_node_logical);' to plot graphs")
